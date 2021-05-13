@@ -97,7 +97,11 @@ class Carselector extends StatelessWidget {
                             itemBuilder: (context,index){
                               return InkWell(
                                 onTap: () {
-                                  print("${cars[index].type}");
+                                  Navigator.pushNamed(context, '/checkout',arguments: {
+                                    "type": cars[index].type,
+                                    "price": cars[index].price,
+                                    "image": cars[index].image,
+                                  });
                                 },
                                 child: Container(
                                   margin: EdgeInsets.fromLTRB(0.0, 10.0, 17.0, 17.0),

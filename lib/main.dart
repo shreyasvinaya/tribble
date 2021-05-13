@@ -5,7 +5,10 @@ import 'package:tribble/screens/checkout.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: Checkout(),
+    routes: {
+      "/": (context) => Carselector(),
+      "/checkout": (context) => Checkout(),
+    },
   ));
 }
 
