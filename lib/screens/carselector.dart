@@ -5,7 +5,7 @@ class Car{
   String type,price,image;
   Car({this.type,this.price,this.image});
 }
-class Home extends StatelessWidget {
+class Carselector extends StatelessWidget {
   @override
   List<Car> cars = [
     Car(type: "Standard", price: "200", image: "standard.png"),
@@ -17,52 +17,54 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Choose The Car Type",
-      //     style: TextStyle(
-      //         fontWeight: FontWeight.bold,
-      //         fontSize: 25.0,
-      //         color: Colors.white,
-      //     ),
-      //   ),
-      //   centerTitle: true,
-      //   backgroundColor: Colors.grey[850],
-      //   elevation: 0.0,
-      // ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
-              child: FlatButton.icon(onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)
-                  ),
-                  color: Colors.grey[900],
-                  icon: Icon(
-                    Icons.add_location_sharp,
-                    size: 27.0,
-                    color: Colors.orange,
-                  ),
-                  label: Column(
-                    children: [
-                      Text("BITS Goa",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.0,
-                          color: Colors.white70,
-                        ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FlatButton.icon(onPressed: () {},
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)
                       ),
-                      Text("\tChange Location!",
-                        style: TextStyle(
-                            color: Colors.white
-                        ),),
-                      SizedBox(height: 5.0,),
-                    ],
-                  )),
+                      color: Colors.grey[900],
+                      icon: Icon(
+                        Icons.add_location_sharp,
+                        size: 27.0,
+                        color: Colors.orange,
+                      ),
+                      label: Column(
+                        children: [
+                          Text("BITS Goa",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.0,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          Text("\tChange Location!",
+                            style: TextStyle(
+                                color: Colors.white
+                            ),),
+                          SizedBox(height: 5.0,),
+                        ],
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 4.0, 8.0, 0.0),
+                    child: IconButton(icon: Icon(
+                      Icons.menu,
+                      color: Colors.black,
+                      size: 30.0,
+                    ),
+                        onPressed: () {}
+                        ),
+                  ),
+                ],
+              ),
             ),
             Expanded(
               child: Container(
