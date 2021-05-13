@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tribble/blocs/auth_bloc.dart';
 import 'package:tribble/screens/login.dart';
@@ -8,12 +9,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
+
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class HomeRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Provider(
       create: (context) => AuthBloc(),
       child: MaterialApp(
@@ -22,9 +24,11 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primaryColor: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+
         ),
         home: LoginScreen(),
       ),
+
     );
   }
 }
