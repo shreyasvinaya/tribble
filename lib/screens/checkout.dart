@@ -158,8 +158,9 @@ class Checkout extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(20.0, 0.0, 10.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Top places to\nvisit in Goa",
                       style: TextStyle(
@@ -167,7 +168,7 @@ class Checkout extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                       ),
-                      SizedBox(width: 15.0,),
+                      // SizedBox(width: 15.0,),
                       Container(
                         height: 130.0,
                         width: 200.0,

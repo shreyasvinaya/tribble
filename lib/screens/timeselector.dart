@@ -42,7 +42,7 @@ class _TimeselectorState extends State<Timeselector> {
                   },
                   child: Container(
                     height: 100.0,
-                    width: MediaQuery.of(context).size.width-250,
+                    width: MediaQuery.of(context).size.width-200,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
                       color: Colors.grey[800],
