@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 
 
 class Car{
@@ -23,48 +24,33 @@ class Carselector extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FlatButton.icon(onPressed: () {},
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)
-                      ),
-                      color: Colors.grey[900],
-                      icon: Icon(
-                        Icons.add_location_sharp,
-                        size: 27.0,
-                        color: Colors.orange,
-                      ),
-                      label: Column(
-                        children: [
-                          Text("BITS Goa",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.0,
-                              color: Colors.white70,
-                            ),
-                          ),
-                          Text("\tChange Location!",
-                            style: TextStyle(
-                                color: Colors.white
-                            ),),
-                          SizedBox(height: 5.0,),
-                        ],
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 4.0, 8.0, 0.0),
-                    child: IconButton(icon: Icon(
-                      Icons.menu,
-                      color: Colors.black,
-                      size: 30.0,
-                    ),
-                        onPressed: () {}
-                        ),
+              child: FlatButton.icon(onPressed: () {},
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)
                   ),
-                ],
-              ),
+                  color: Colors.grey[900],
+                  icon: Icon(
+                    Icons.add_location_sharp,
+                    size: 27.0,
+                    color: Colors.orange,
+                  ),
+                  label: Column(
+                    children: [
+                      Text("BITS Goa",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.0,
+                          color: Colors.white70,
+                        ),
+                      ),
+                      Text("\tChange Location!",
+                        style: TextStyle(
+                            color: Colors.white
+                        ),),
+                      SizedBox(height: 5.0,),
+                    ],
+                  )),
             ),
             Expanded(
               child: Container(
@@ -97,11 +83,10 @@ class Carselector extends StatelessWidget {
                             itemBuilder: (context,index){
                               return InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/checkout',arguments: {
-                                    "type": cars[index].type,
-                                    "price": cars[index].price,
-                                    "image": cars[index].image,
-                                  });
+                                  Navigator.pushNamed(context, '/timeselect');
+                                  GlobalConfiguration().updateValue("type", cars[index].type);
+                                  GlobalConfiguration().updateValue("price", cars[index].price);
+                                  GlobalConfiguration().updateValue("image", cars[index].image);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.fromLTRB(0.0, 10.0, 17.0, 17.0),

@@ -1,17 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 
 class Checkout extends StatelessWidget {
   Map dataReceived = {};
   @override
   Widget build(BuildContext context) {
     dataReceived = ModalRoute.of(context).settings.arguments;
+    int num = int.parse(dataReceived["number"]);
+    int perhr = int.parse(GlobalConfiguration().get("price"));
+    int cost;
+    if(dataReceived["timeType"] == "Hours"){
+      cost = perhr*num;
+    }
+    else{
+      cost = perhr*num*24;
+    }
     return Scaffold(
-      backgroundColor: Colors.white70,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 20.0,),
+            SizedBox(height: 7.0,),
             Align(
               alignment: Alignment.center,
               child: Container(
@@ -40,7 +51,7 @@ class Checkout extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
               child: Row(
                 children: [
                   Container(
@@ -58,7 +69,7 @@ class Checkout extends StatelessWidget {
                           size: 35.0,
                         ),
                         SizedBox(width: 5.0,),
-                        Text("24 min",
+                        Text("${dataReceived["number"]} ${dataReceived["timeType"]}",
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -85,7 +96,7 @@ class Checkout extends StatelessWidget {
                         ),
                         ),
                         SizedBox(width: 5.0,),
-                        Text("200",
+                        Text("$cost",
                         style:TextStyle(
                           fontSize: 23.0,
                           fontWeight: FontWeight.bold,
@@ -94,11 +105,9 @@ class Checkout extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // SizedBox(width: 15.0,),
                 ],
               ),
             ),
-            SizedBox(height: 20.0,),
             Align(
               alignment: Alignment.center,
               child: Container(
@@ -113,13 +122,13 @@ class Checkout extends StatelessWidget {
                     Image(
                       height: 130.0,
                       width: 200.0,
-                      image: AssetImage('assets/${dataReceived["image"]}'),
+                      image: AssetImage('assets/${GlobalConfiguration().get("image")}'),
                     ),
                     SizedBox(width: 50.0,),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("${dataReceived["type"]}",
+                        Text("${GlobalConfiguration().get("type")}",
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -127,7 +136,7 @@ class Checkout extends StatelessWidget {
                         ),
                         ),
                         SizedBox(height: 30.0,),
-                        Text("₹ ${dataReceived["price"]}",
+                        Text("₹ ${GlobalConfiguration().get("price")}",
                         style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.w600
@@ -139,7 +148,6 @@ class Checkout extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20.0,),
             Align(
               alignment: Alignment.center,
               child: Container(
@@ -176,7 +184,6 @@ class Checkout extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 30.0,),
             Padding(
               padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
               child: Row(
@@ -222,6 +229,7 @@ class Checkout extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 7.0,)
           ],
         ),
       ),
