@@ -29,6 +29,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   GoogleMapController _controller;
   List<Marker> allMarkers = [];
+  PageController _pageController;
+  int prevPage;
 
   final List<Locations> pickupLocations = [
 
@@ -88,7 +90,117 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
       }
     );
+    _pageController = PageController(initialPage:1, viewportFraction: 0.8)..addListener(scrollListener);
   }
+
+  void scrollListener() {
+     if(_pageController.page.toInt() != prevPage) {
+       prevPage = _pageController.page.toInt();
+       moveCamera();
+     }
+  }
+
+  _pickupLocationsList(index) {
+    return AnimatedBuilder(
+      animation: _pageController,
+      builder: (BuildContext context, Widget widget) {
+        double value = 1;
+        if(_pageController.position.haveDimensions){
+          value = _pageController.page - index;
+          value = (1 - (value.abs() * 0.3) + 0.06 ).clamp(0.0, 1.0);
+        }
+        return Center(
+          child : SizedBox(
+            height: Curves.easeInOut.transform(value) * 300,
+            width: Curves.easeInOut.transform(value) * 350,
+            child: widget,
+          ),
+        );
+      },
+      child: InkWell(
+        onTap: () {
+          moveCamera();
+        },
+        child: Stack(
+          children: [
+            Center(
+              child: Container(
+                margin: EdgeInsets.symmetric( horizontal: 10.0, vertical: 20.0),
+                height: 125.0,
+                width:  275.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black54,
+                      offset: Offset(1.0, 2.0),
+                      blurRadius: 10.0,
+                    ),
+                  ]
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 120.0,
+                        width: 100.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10.0),
+                            topLeft: Radius.circular(10.0),
+                          ),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              pickupLocations[index].thumbnail
+                            ),
+                            fit: BoxFit.cover
+                          )
+                        )
+                      ),
+                      SizedBox(width: 10.0),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            pickupLocations[index].shopName,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),Text(
+                            pickupLocations[index].address,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),Container(
+                              width: 160.0,
+                              child: Text(
+                                pickupLocations[index].description,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                )
+              )
+            )
+          ]
+        )
+      )
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body:  Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height-20,
+            height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
 
             child: GoogleMap(
@@ -110,6 +222,22 @@ class _MyHomePageState extends State<MyHomePage> {
               onMapCreated: mapCreated,
             ),
           ),
+          Positioned(
+            bottom : 0.0,
+            child: Container(
+              height: 200.0,
+              width: MediaQuery.of(context).size.width,
+              child: PageView.builder(
+                controller : _pageController,
+                itemCount: pickupLocations.length,
+                itemBuilder: (BuildContext context, int index){
+                  return _pickupLocationsList(index);
+                }
+              ),
+
+
+            ),
+          ),
         ],
       ),
 
@@ -120,6 +248,14 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _controller = controller;
     });
+  }
+  moveCamera() {
+    _controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(target: pickupLocations[_pageController.page.toInt()].locationCoordinates,
+      zoom: 16,
+      tilt: 45,
+      bearing: 30,)
+    ));
   }
 
 }
