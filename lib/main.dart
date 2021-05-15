@@ -184,7 +184,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 pickupLocations[index].description,
                                 style: TextStyle(
                                   fontSize: 11,
-                                  fontWeight: FontWeight.bold
                                 ),
                               ),
                           ),
@@ -206,7 +205,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body:  Stack(
+
+      body:
+      Stack(
         children: [
           Container(
             height: MediaQuery.of(context).size.height,
@@ -222,6 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onMapCreated: mapCreated,
             ),
           ),
+
           Positioned(
             bottom : 0.0,
             child: Container(
