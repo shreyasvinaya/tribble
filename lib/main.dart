@@ -16,33 +16,32 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalConfiguration().loadFromAsset("config");
   await Firebase.initializeApp();
-  runApp(MaterialApp(
-    routes: {
-      "/login": (context) => LoginScreen(),
-      "/": (context) => MyHomePage(),
-      "/carselect": (context) => Carselector(),
-      "/checkout": (context) => Checkout(),
-      "/timeselect": (context) => Timeselector(),
-      "/timetype": (context) => Timetype(),
-      "/hours": (context) => Hours(),
-      "/days": (context) => Days(),
-    },
-  ));
+  runApp(Material1App());
 }
 
-class MaterialApp extends StatelessWidget {
+class Material1App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
       create: (context) => AuthBloc(),
       child: MaterialApp(
-        title: 'Tribble Login',
+        title: 'Tribble',
         theme: ThemeData(
           brightness: Brightness.dark,
           primaryColor: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: LoginScreen(),
+        routes: {
+          "/login": (context) => LoginScreen(),
+          // "/": (context) => MyHomePage(),
+          "/carselect": (context) => HomeScreen(),
+          "/checkout": (context) => Checkout(),
+          "/timeselect": (context) => Timeselector(),
+          "/timetype": (context) => Timetype(),
+          "/hours": (context) => Hours(),
+          "/days": (context) => Days(),
+        },
       ),
     );
   }

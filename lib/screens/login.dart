@@ -4,8 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:tribble/blocs/auth_bloc.dart';
-import 'package:tribble/screens/home.dart';
+import 'package:tribble/screens/carselector.dart';
+
 import 'package:provider/provider.dart';
+
+// import 'carselector.dart';
+// import 'shoplocations.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

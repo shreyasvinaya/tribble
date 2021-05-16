@@ -1,12 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Car{
-  String type,price,image;
-  Car({this.type,this.price,this.image});
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:tribble/blocs/auth_bloc.dart';
+import 'package:tribble/screens/login.dart';
+import 'package:provider/provider.dart';
+
+class Car {
+  String type, price, image;
+  Car({this.type, this.price, this.image});
 }
-class Carselector extends StatelessWidget {
+
+class HomeScreen extends StatefulWidget {
+  @override
+  Carselector createState() => Carselector();
+}
+
+class Carselector extends State<HomeScreen> {
+  StreamSubscription<User> loginStateSubscription;
+
+  @override
+  void initState() {
+    var authBloc = Provider.of<AuthBloc>(context, listen: false);
+    loginStateSubscription = authBloc.currentUser.listen((fbUser) {
+      if (fbUser == null) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => LoginScreen(),
+          ),
+        );
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    loginStateSubscription.cancel();
+    super.dispose();
+  }
+
   @override
   List<Car> cars = [
     Car(type: "Standard", price: "200", image: "standard.png"),
@@ -16,151 +53,198 @@ class Carselector extends StatelessWidget {
     Car(type: "Sports", price: "1000", image: "sports.png"),
   ];
   Widget build(BuildContext context) {
+    final authBloc = Provider.of<AuthBloc>(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
-              child: FlatButton.icon(onPressed: () {
-                Navigator.pop(context);
-              },
-                  minWidth: MediaQuery.of(context).size.width-30,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)
-                  ),
-                  color: Colors.grey[800],
-                  icon: Icon(
-                    Icons.add_location_sharp,
-                    size: 27.0,
-                    color: Colors.orange,
-                  ),
-                  label: Column(
-                    children: [
-                      Text("BITS Goa",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.0,
-                          color: Colors.white70,
+        child: StreamBuilder<User>(
+            stream: authBloc.currentUser,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return CircularProgressIndicator();
+              print(snapshot.data.photoURL);
+              return Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // children: [
+                //   // Text(snapshot.data.displayName,
+                //   //     style: TextStyle(fontSize: 35.0)),
+                //   // SizedBox(
+                //   //   height: 20.0,
+                //   // ),
+                //   CircleAvatar(
+                //     backgroundImage: NetworkImage(
+                //         snapshot.data.photoURL.replaceFirst('s96', 's400')),
+                //     radius: 60.0,
+                //   ),
+                //   SizedBox(
+                //     height: 100.0,
+                //   ),
+                //   SignInButton(Buttons.Google,
+                //       text: 'Sign Out of Google',
+                //       onPressed: () => authBloc.logout())
+                // ],
+
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
+                    child: FlatButton.icon(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        minWidth: MediaQuery.of(context).size.width - 30,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        color: Colors.grey[800],
+                        icon: Icon(
+                          Icons.add_location_sharp,
+                          size: 27.0,
+                          color: Colors.orange,
                         ),
-                      ),
-                      Text("\tChange Location!",
-                        style: TextStyle(
-                            color: Colors.white
-                        ),),
-                      SizedBox(height: 5.0,),
-                    ],
-                  )),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.0),
-                    image: DecorationImage(
-                        image: AssetImage('assets/map.jpg'),
-                        fit: BoxFit.cover
-                    )
-                ),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: AssetImage("assets/dragon.jpg"),
-                            radius: 25.0,
-                          ),
-                        ],
-                      ),
-                      Container(
-                        height: 250.0,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: cars.length,
-                            itemBuilder: (context,index){
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/timeselect');
-                                  GlobalConfiguration().updateValue("type", cars[index].type);
-                                  GlobalConfiguration().updateValue("price", cars[index].price);
-                                  GlobalConfiguration().updateValue("image", cars[index].image);
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.fromLTRB(0.0, 10.0, 17.0, 17.0),
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.blue[100],
-                                  ),
-                                  child: Stack(
-                                    alignment: Alignment.topCenter,
-                                    children: [
-                                      Positioned(
-                                        bottom: 10.0,
-                                        child: Container(
-                                          height: 100.0,
-                                          width: 150.0,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(20.0),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black12,
-                                                offset: Offset(7.0,7.0),
+                        label: Column(
+                          children: [
+                            Text(
+                              "BITS Goa",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.0,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            Text(
+                              "\tChange Location!",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                          ],
+                        )),
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.0),
+                          image: DecorationImage(
+                              image: AssetImage('assets/map.jpg'),
+                              fit: BoxFit.cover)),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage: NetworkImage(snapshot
+                                      .data.photoURL
+                                      .replaceFirst('s96', 's400')),
+                                  radius: 25.0,
+                                ),
+                              ],
+                            ),
+                            Container(
+                              height: 250.0,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: cars.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, '/timeselect');
+                                        GlobalConfiguration().updateValue(
+                                            "type", cars[index].type);
+                                        GlobalConfiguration().updateValue(
+                                            "price", cars[index].price);
+                                        GlobalConfiguration().updateValue(
+                                            "image", cars[index].image);
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.fromLTRB(
+                                            0.0, 10.0, 17.0, 17.0),
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                          color: Colors.blue[100],
+                                        ),
+                                        child: Stack(
+                                          alignment: Alignment.topCenter,
+                                          children: [
+                                            Positioned(
+                                              bottom: 10.0,
+                                              child: Container(
+                                                height: 100.0,
+                                                width: 150.0,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black12,
+                                                      offset: Offset(7.0, 7.0),
+                                                    ),
+                                                  ],
+                                                  color: Colors.blue[300],
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      30.0, 20.0, 0.0, 0.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "${cars[index].type}",
+                                                        style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 1.5,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 15.0,
+                                                      ),
+                                                      Text(
+                                                        "₹${cars[index].price}/hr",
+                                                        style: TextStyle(
+                                                            fontSize: 22.0,
+                                                            letterSpacing: 1.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                            ],
-                                            color: Colors.blue[300],
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 0.0),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("${cars[index].type}",
-                                                  style: TextStyle(
-                                                    fontSize: 20.0,
-                                                    letterSpacing: 1.5,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 15.0,),
-                                                Text("₹${cars[index].price}/hr",
-                                                  style: TextStyle(
-                                                      fontSize: 22.0,
-                                                      letterSpacing: 1.0,
-                                                      fontWeight: FontWeight.w600,
-                                                      color: Colors.white
-                                                  ),
-                                                ),
-                                              ],
                                             ),
-                                          ),
+                                            Image(
+                                              height: 110.0,
+                                              width: 200.0,
+                                              image: AssetImage(
+                                                  'assets/${cars[index].image}'),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Image(
-                                        height: 110.0,
-                                        width: 200.0,
-                                        image: AssetImage('assets/${cars[index].image}'),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
+                                    );
+                                  }),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-          ],
-        ),
+                ],
+              );
+            }),
       ),
     );
   }
