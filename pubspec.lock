@@ -74,6 +74,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  global_configuration:
+    dependency: "direct main"
+    description:
+      name: global_configuration
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.0"
   google_maps_flutter:
     dependency: "direct main"
     description:
@@ -88,13 +95,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4"
-  global_configuration:
-    dependency: "direct main"
-    description:
-      name: global_configuration
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.0"
   http:
     dependency: transitive
     description:
@@ -130,13 +130,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  plugin_platform_interface:
-    dependency: transitive
-    description:
-      name: plugin_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   pedantic:
     dependency: transitive
     description:
@@ -144,6 +137,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.0"
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   sky_engine:
     dependency: transitive
     description: flutter

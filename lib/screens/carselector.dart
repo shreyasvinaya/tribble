@@ -24,7 +24,9 @@ class Carselector extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
-              child: FlatButton.icon(onPressed: () {},
+              child: FlatButton.icon(onPressed: () {
+                Navigator.pop(context);
+              },
                   minWidth: MediaQuery.of(context).size.width-30,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)

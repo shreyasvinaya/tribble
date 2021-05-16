@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         child: InkWell(
             onTap: () {
-              moveCamera();
+              Navigator.pushNamed(context, '/carselect');
             },
             child: Stack(
                 children: [
