@@ -7,13 +7,18 @@ import 'package:tribble/screens/timetype.dart';
 import 'package:tribble/screens/hours.dart';
 import 'package:tribble/screens/days.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:tribble/blocs/auth_bloc.dart';
+import 'package:tribble/screens/login.dart';
+import 'package:provider/provider.dart';
 
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalConfiguration().loadFromAsset("config");
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     routes: {
+      "/login": (context) => LoginScreen(),
       "/": (context) => MyHomePage(),
       "/carselect": (context) => Carselector(),
       "/checkout": (context) => Checkout(),
@@ -25,3 +30,20 @@ void main() async{
   ));
 }
 
+class MaterialApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Provider(
+      create: (context) => AuthBloc(),
+      child: MaterialApp(
+        title: 'Tribble Login',
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: LoginScreen(),
+      ),
+    );
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "378755349333",
+    "project_id": "tribble-28c56",
+    "storage_bucket": "tribble-28c56.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378755349333:android:15ce54264d8c7c843f4ddc",
+        "android_client_info": {
+          "package_name": "com.example.tribble"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378755349333-a63dskjl82rla34fbo6rfc446v7ag2jm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tribble",
+            "certificate_hash": "8048cb1b73bed7b19786194a69c160acd4404fdf"
+          }
+        },
+        {
+          "client_id": "378755349333-brg43d6abnbrhqp1r7upkk88dug8g7nf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZtmyjFvp-sHIE4NtbvwSHCExlDNWKTFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378755349333-brg43d6abnbrhqp1r7upkk88dug8g7nf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "378755349333-2t6s22viuo04a6put41pv4d6cli3sh0m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tribble"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
