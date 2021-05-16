@@ -171,7 +171,7 @@ class Checkout extends StatelessWidget {
                       // SizedBox(width: 15.0,),
                       Container(
                         height: 130.0,
-                        width: 200.0,
+                        width: 170.0,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           image: DecorationImage(

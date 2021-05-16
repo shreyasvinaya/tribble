@@ -17,7 +17,7 @@ class Carselector extends StatelessWidget {
   ];
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,10 +25,11 @@ class Carselector extends StatelessWidget {
             Padding(
               padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
               child: FlatButton.icon(onPressed: () {},
+                  minWidth: MediaQuery.of(context).size.width-30,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)
                   ),
-                  color: Colors.grey[900],
+                  color: Colors.grey[800],
                   icon: Icon(
                     Icons.add_location_sharp,
                     size: 27.0,
@@ -93,7 +94,7 @@ class Carselector extends StatelessWidget {
                                   width: 200,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.white,
+                                    color: Colors.blue[100],
                                   ),
                                   child: Stack(
                                     alignment: Alignment.topCenter,
@@ -101,17 +102,17 @@ class Carselector extends StatelessWidget {
                                       Positioned(
                                         bottom: 10.0,
                                         child: Container(
-                                          height: 120.0,
+                                          height: 100.0,
                                           width: 150.0,
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(20.0),
                                             boxShadow: [
                                               BoxShadow(
                                                 color: Colors.black12,
-                                                offset: Offset(13.0,10.0),
+                                                offset: Offset(7.0,7.0),
                                               ),
                                             ],
-                                            color: Colors.white,
+                                            color: Colors.blue[300],
                                           ),
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 0.0),
@@ -125,13 +126,13 @@ class Carselector extends StatelessWidget {
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                SizedBox(height: 20.0,),
+                                                SizedBox(height: 15.0,),
                                                 Text("₹${cars[index].price}/hr",
                                                   style: TextStyle(
                                                       fontSize: 22.0,
                                                       letterSpacing: 1.0,
                                                       fontWeight: FontWeight.w600,
-                                                      color: Colors.greenAccent[700]
+                                                      color: Colors.white
                                                   ),
                                                 ),
                                               ],
