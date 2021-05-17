@@ -183,7 +183,7 @@ class Checkout extends StatelessWidget {
                         // SizedBox(width: 15.0,),
                       InkWell(
                         onTap: () {
-                          // Navigator.pushNamed(context, '/goaDest');
+                          Navigator.pushNamed(context, '/goaDest');
                         },
                         child:Container(
                             height: 130.0,
