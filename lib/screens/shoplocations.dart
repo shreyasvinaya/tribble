@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, '/carselect', arguments: pickupLocations[index].locationCoordinates);
+              Navigator.pushNamed(context, '/carselect', arguments: pickupLocations[index].locationCoordinates );
               },
             child: Stack(
                 children: [
