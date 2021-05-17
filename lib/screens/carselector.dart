@@ -53,7 +53,7 @@ class Carselector extends StatelessWidget {
                   ),
                   label: Column(
                     children: [
-                      Text("BITS Goa",
+                      Text("${GlobalConfiguration().get("location")}",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

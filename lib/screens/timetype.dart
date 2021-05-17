@@ -31,7 +31,6 @@ class Timetype extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            // crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
                 height: MediaQuery.of(context).size.height*0.7,
