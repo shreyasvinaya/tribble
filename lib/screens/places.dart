@@ -14,12 +14,11 @@ class Places extends StatefulWidget {
 class _PlacesState extends State<Places> {
 
   GoogleMapController _controller;
-  List<Marker> allMarkers = [];
+  List<Marker> allDestinationMarkers = [];
   PageController _pageController;
   int prevPage;
 
-  final List<Locations> pickupLocations = [
-
+  final List<Locations> destinations = [
     Locations(
       Name: 'destination 1',
       address: 'goa',
@@ -32,7 +31,7 @@ class _PlacesState extends State<Places> {
         Name: 'destination 2',
         address: 'goa',
         description: 'goa 2',
-        locationCoordinates: LatLng(15.480, 73.880),
+        locationCoordinates: LatLng(15.478, 73.875),
         thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
     ),
 
@@ -40,7 +39,7 @@ class _PlacesState extends State<Places> {
         Name: 'destination 3',
         address: 'goa',
         description: 'goa 3',
-        locationCoordinates: LatLng(15.480, 73.880),
+        locationCoordinates: LatLng(15.4792, 73.890),
         thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
     ),
 
@@ -48,7 +47,7 @@ class _PlacesState extends State<Places> {
         Name: 'destination 4',
         address: 'goa',
         description: 'goa 4',
-        locationCoordinates: LatLng(15.480, 73.880),
+        locationCoordinates: LatLng(15.483, 73.893),
         thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
     ),
 
@@ -56,7 +55,7 @@ class _PlacesState extends State<Places> {
         Name: 'destination 5',
         address: 'goa',
         description: 'goa 5',
-        locationCoordinates: LatLng(15.480, 73.880),
+        locationCoordinates: LatLng(15.484, 73.874),
         thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
     ),
 
@@ -65,13 +64,14 @@ class _PlacesState extends State<Places> {
   @override
   void initState() {
     super.initState();
-    pickupLocations.forEach((element)
+    destinations.forEach((element)
     {
-      allMarkers.add(Marker(
-          markerId: MarkerId(element.Name),
-          draggable: false,
-          infoWindow: InfoWindow( title: element.Name, snippet: element.address),
-          position: element.locationCoordinates
+      allDestinationMarkers.add(
+          Marker(
+            markerId: MarkerId(element.Name),
+            draggable: false,
+            infoWindow: InfoWindow( title: element.Name, snippet: element.address),
+            position: element.locationCoordinates
       ));
     }
     );
@@ -85,7 +85,7 @@ class _PlacesState extends State<Places> {
     }
   }
 
-  _pickupLocationsList(index) {
+  _destinationsList(index) {
     return AnimatedBuilder(
         animation: _pageController,
         builder: (BuildContext context, Widget widget) {
@@ -140,7 +140,7 @@ class _PlacesState extends State<Places> {
                                           ),
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  pickupLocations[index].thumbnail
+                                                  destinations[index].thumbnail
                                               ),
                                               fit: BoxFit.cover
                                           )
@@ -152,13 +152,13 @@ class _PlacesState extends State<Places> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        pickupLocations[index].Name,
+                                        destinations[index].Name,
                                         style: TextStyle(
                                             fontSize: 13,
                                             fontWeight: FontWeight.bold
                                         ),
                                       ),Text(
-                                        pickupLocations[index].address,
+                                        destinations[index].address,
                                         style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.bold
@@ -166,7 +166,7 @@ class _PlacesState extends State<Places> {
                                       ),Container(
                                         width: 160.0,
                                         child: Text(
-                                          pickupLocations[index].description,
+                                          destinations[index].description,
                                           style: TextStyle(
                                             fontSize: 11,
                                           ),
@@ -199,12 +199,13 @@ class _PlacesState extends State<Places> {
             width: MediaQuery.of(context).size.width,
 
             child: GoogleMap(
+              mapType: MapType.satellite,
               initialCameraPosition: CameraPosition(
                 target: LatLng(15.4, 73.8),
-                zoom: 13,
+                zoom: 14,
                 tilt: 20,
               ),
-              markers: Set.from(allMarkers),
+              markers: Set.from(allDestinationMarkers),
               onMapCreated: mapCreated,
             ),
           ),
@@ -216,9 +217,8 @@ class _PlacesState extends State<Places> {
               width: MediaQuery.of(context).size.width,
               child: PageView.builder(
                   controller : _pageController,
-                  itemCount: pickupLocations.length,
                   itemBuilder: (BuildContext context, int index){
-                    return _pickupLocationsList(index);
+                    return _destinationsList(index);
                   }
               ),
 
@@ -236,10 +236,12 @@ class _PlacesState extends State<Places> {
       _controller = controller;
     });
   }
+
   moveCamera() {
     _controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: pickupLocations[_pageController.page.toInt()].locationCoordinates,
-          zoom: 16,
+        CameraPosition(
+          target: LatLng(destinations[_pageController.page.toInt()].locationCoordinates.latitude, destinations[_pageController.page.toInt()].locationCoordinates.longitude),
+          zoom: 15,
           tilt: 15,
           bearing: 10,)
     ));
