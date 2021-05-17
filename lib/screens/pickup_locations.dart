@@ -15,6 +15,4 @@ class Locations {
     this.thumbnail
 });
 
-
-
 }

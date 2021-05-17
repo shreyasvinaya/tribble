@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 class Car{
@@ -8,6 +9,7 @@ class Car{
 }
 class Carselector extends StatelessWidget {
   @override
+
   List<Car> cars = [
     Car(type: "Standard", price: "200", image: "standard.png"),
     Car(type: "MiniVan", price: "300", image: "minivan.png"),
@@ -16,6 +18,18 @@ class Carselector extends StatelessWidget {
     Car(type: "Sports", price: "1000", image: "sports.png"),
   ];
   Widget build(BuildContext context) {
+
+    LatLng coordinates = ModalRoute.of(context).settings.arguments;
+    Set<Marker> _createMarker() {
+      return {
+        Marker(
+            markerId: MarkerId("marker"),
+            position: LatLng(coordinates.latitude, coordinates.longitude),
+            infoWindow: InfoWindow(title: 'Your Pickup Location'),
+        ),
+      };
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -56,15 +70,19 @@ class Carselector extends StatelessWidget {
                   )),
             ),
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.0),
-                    image: DecorationImage(
-                        image: AssetImage('assets/map.jpg'),
-                        fit: BoxFit.cover
-                    )
-                ),
-                child: Padding(
+              child: Stack(
+                children: [
+                  GoogleMap(
+                    mapType: MapType.satellite,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(coordinates.latitude, coordinates.longitude),
+                      zoom: 20,
+                      tilt: 30,
+                      bearing: 20,
+                    ),
+                    markers: _createMarker(),
+                  ),
+                Padding(
                   padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,7 +174,7 @@ class Carselector extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                ),],
               ),
             ),
           ],

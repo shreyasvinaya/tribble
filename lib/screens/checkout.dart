@@ -181,18 +181,22 @@ class Checkout extends StatelessWidget {
                         ),
                         ),
                         // SizedBox(width: 15.0,),
-                        Container(
-                          height: 130.0,
-                          width: 170.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            image: DecorationImage(
-                              image: AssetImage('assets/map.jpg'),
-                              fit: BoxFit.cover,
+                      InkWell(
+                        onTap: () {
+                          // Navigator.pushNamed(context, '/goaDest');
+                        },
+                        child:Container(
+                            height: 130.0,
+                            width: 170.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              image: DecorationImage(
+                                image: AssetImage('assets/map.jpg'),
+                                fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                      ],
+                      ),],
                     ),
                   ),
                 ),
