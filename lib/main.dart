@@ -22,7 +22,7 @@ void main() async{
       "/timetype": (context) => Timetype(),
       "/hours": (context) => Hours(),
       "/days": (context) => Days(),
-      // "/goaDest": (context) => Places(),
+      "/goaDest": (context) => Places(),
     },
   ));
 }
