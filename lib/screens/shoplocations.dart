@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tribble/screens/pickup_locations.dart';
 
@@ -105,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         child: InkWell(
             onTap: () {
+              GlobalConfiguration().updateValue("location", pickupLocations[index].shopName);
               Navigator.pushNamed(context, '/carselect');
             },
             child: Stack(

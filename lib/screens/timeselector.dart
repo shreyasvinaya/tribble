@@ -19,20 +19,20 @@ class _TimeselectorState extends State<Timeselector> {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.grey[600],
           title: Text("Time Duration",
-          style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2.0,
-            color: Colors.black,
-          ),
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2.0,
+              color: Colors.black,
+            ),
           ),
         ),
         body: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/newmap.png'),
-              fit: BoxFit.cover
-            )
+              image: DecorationImage(
+                  image: AssetImage('assets/newmap.png'),
+                  fit: BoxFit.cover
+              )
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,23 +58,23 @@ class _TimeselectorState extends State<Timeselector> {
                           color: Colors.cyan[700].withOpacity(0.8),
                         ),
                         child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(width: 10.0,),
-                          Text("$type",
-                            style: TextStyle(
-                                fontSize: 35.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(width: 10.0,),
+                            Text("$type",
+                              style: TextStyle(
+                                  fontSize: 35.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold
+                              ),
                             ),
-                          ),
-                          Icon(
-                            Icons.arrow_drop_down_outlined,
-                            color: Colors.white,
-                            size: 51.0,
-                          ),
-                        ],
-                      ),
+                            Icon(
+                              Icons.arrow_drop_down_outlined,
+                              color: Colors.white,
+                              size: 51.0,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 40.0,),

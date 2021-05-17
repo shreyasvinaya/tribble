@@ -1,5 +1,6 @@
 {
   "type": "Standard",
   "price": "200",
-  "image": "standard.png"
+  "image": "standard.png",
+  "location": "BITS Goa"
 }
