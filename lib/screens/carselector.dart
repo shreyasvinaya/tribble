@@ -76,7 +76,7 @@ class Carselector extends StatelessWidget {
                     mapType: MapType.satellite,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(coordinates.latitude, coordinates.longitude),
-                      zoom: 20,
+                      zoom: 13,
                       tilt: 30,
                       bearing: 20,
                     ),
