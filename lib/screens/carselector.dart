@@ -73,7 +73,6 @@ class Carselector extends StatelessWidget {
               child: Stack(
                 children: [
                   GoogleMap(
-                    mapType: MapType.satellite,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(coordinates.latitude, coordinates.longitude),
                       zoom: 13,

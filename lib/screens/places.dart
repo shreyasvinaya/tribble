@@ -199,7 +199,6 @@ class _PlacesState extends State<Places> {
             width: MediaQuery.of(context).size.width,
 
             child: GoogleMap(
-              mapType: MapType.satellite,
               initialCameraPosition: CameraPosition(
                 target: LatLng(15.4, 73.8),
                 zoom: 14,
