@@ -57,7 +57,7 @@ class _PlacesState extends State<Places> {
         description: 'goa 5',
         locationCoordinates: LatLng(15.484, 73.874),
         thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
-    ),
+    )
 
   ];
 
@@ -239,7 +239,7 @@ class _PlacesState extends State<Places> {
   moveCamera() {
     _controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(destinations[_pageController.page.toInt()].locationCoordinates.latitude, destinations[_pageController.page.toInt()].locationCoordinates.longitude),
+          target: destinations[_pageController.page.toInt()].locationCoordinates,
           zoom: 15,
           tilt: 15,
           bearing: 10,)
