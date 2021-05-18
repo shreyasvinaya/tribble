@@ -31,9 +31,8 @@ class Material1App extends StatelessWidget {
           primaryColor: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: LoginScreen(),
         routes: {
-          "/login": (context) => LoginScreen(),
+          "/": (context) => LoginScreen(),
           // "/": (context) => MyHomePage(),
           "/carselect": (context) => HomeScreen(),
           "/checkout": (context) => Checkout(),
