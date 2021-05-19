@@ -5,8 +5,6 @@ import 'package:tribble/screens/places_class.dart';
 class Places extends StatefulWidget {
   Places({Key key}) : super(key: key);
 
-
-
   @override
   _PlacesState createState() => _PlacesState();
 }
@@ -222,6 +220,7 @@ class _PlacesState extends State<Places> {
               width: MediaQuery.of(context).size.width,
               child: PageView.builder(
                   controller : _pageController,
+                  itemCount: destinations.length,
                   itemBuilder: (BuildContext context, int index){
                     return _destinationsList(index);
                   }

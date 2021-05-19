@@ -76,13 +76,14 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     pickupLocations.forEach((element)
     {
-      allMarkers.add(Marker(
-          markerId: MarkerId(element.shopName),
-          draggable: false,
-          infoWindow: InfoWindow( title: element.shopName, snippet: element.address),
-          position: element.locationCoordinates
-      ));
-    }
+      allMarkers.add(
+          Marker(
+            markerId: MarkerId(element.shopName),
+            draggable: false,
+            infoWindow: InfoWindow( title: element.shopName, snippet: element.address),
+            position: element.locationCoordinates
+        ));
+      }
     );
     _pageController = PageController(initialPage:1, viewportFraction: 0.8)..addListener(scrollListener);
   }
@@ -196,7 +197,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
 
       body:
@@ -247,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
   moveCamera() {
     _controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: pickupLocations[_pageController.page.toInt()].locationCoordinates,
-          zoom: 16,
+          zoom: 15,
           tilt: 45,
           bearing: 30,)
     ));
