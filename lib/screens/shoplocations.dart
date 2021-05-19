@@ -21,43 +21,51 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Locations> pickupLocations = [
 
     Locations(
-        shopName: 'Shop 1',
-        address: 'goa',
-        description: 'shop no 1',
-        locationCoordinates: LatLng(15.480, 73.880),
-        thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
+        shopName: 'GoiCar - Car Rentals',
+        address: 'South Goa',
+        description: 'Office F1, First Floor, El-Capitan Centre, Near Mapusa Court, North Goa, Mapusa, Bardez, Goa, Mapuca, Goa, India 403507\nPhone: 9860122226 (www.goicar.in/)',
+        locationCoordinates: LatLng(15.5935975612, 73.8138878345),
+        thumbnail: 'GoiCar.png'
     ),
 
     Locations(
-        shopName: 'Shop 2',
-        address: 'goa',
-        description: 'shop no 2',
-        locationCoordinates: LatLng(15.4840, 73.8480),
-        thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
+        shopName: 'Joes Car Rental Goa',
+        address: 'South Goa',
+        description: 'Casa Royale, Shop No 5,Near Dabolim Airport, Goa, Dabolim, Goa 403711',
+        locationCoordinates: LatLng(15.39308, 73.81816),
+        thumbnail: 'joescar.jpg'
     ),
 
     Locations(
-        shopName: 'Shop 3',
-        address: 'goa',
-        description: 'shop no 3',
-        locationCoordinates: LatLng(15.460, 73.860),
-        thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
+        shopName: 'Lucky Ali Car Hire Service',
+        address: 'South Goa',
+        description: 'Dabolim Airport, Vasco da Gama, Goa 403802. Phone- 9730764818',
+        locationCoordinates: LatLng(15.3899, 73.8253),
+        thumbnail: 'LuckyAli.jpg'
     ),
 
     Locations(
-        shopName: 'Shop 4',
-        address: 'goa',
-        description: 'shop no 4',
-        locationCoordinates: LatLng(15.470, 73.870),
-        thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
+        shopName: 'Car4Hires',
+        address: 'South Goa',
+        description: 'Zuari Road, Maimollem, Mormugao, Goa, 403802. Phone- 7528904589',
+        locationCoordinates: LatLng(15.387616630175167, 73.82024343518475),
+        thumbnail: 'Car4Hire.png'
     ),
 
     Locations(
-        shopName: 'Shop 5',
-        address: 'goa',
-        description: 'shop no 5',
-        locationCoordinates: LatLng(15.484, 73.885),
-        thumbnail: 'https://www.revv.co.in/assets/RentalImages/HomeScreen/heroCarousel/ST_Desktop_1_FG.webp'
+        shopName: 'Comfort Car Rental',
+        address: 'South Goa',
+        description: 'Umiya Quatro - D, Office No. 25, Upper, goa international airport Green Valley, Dabolim, Goa 403801. Phone- 9823086404',
+        locationCoordinates: LatLng(15.387357158054131, 73.84500889791742),
+        thumbnail: 'ComfortRental.png'
+    ),
+
+    Locations(
+        shopName: 'Vailankanni Auto Hires',
+        address: 'North Goa',
+        description: 'Saint Joseph Apartments, A-5, Camotim Vaddo, Candolim, Goa 403515. Phone- 9822101598',
+        locationCoordinates: LatLng(15.521544407569099, 73.76700327815014),
+        thumbnail: 'Vailankanni.png'
     ),
 
   ];
@@ -141,10 +149,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                             topLeft: Radius.circular(10.0),
                                           ),
                                           image: DecorationImage(
-                                              image: NetworkImage(
-                                                  pickupLocations[index].thumbnail
-                                              ),
-                                              fit: BoxFit.cover
+                                              image: AssetImage("assets/${pickupLocations[index].thumbnail}"),
+                                              fit: BoxFit.contain
                                           )
                                       )
                                   ),

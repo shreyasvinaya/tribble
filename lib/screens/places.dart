@@ -56,7 +56,7 @@ class _PlacesState extends State<Places> {
         address: 'South Goa',
         description: 'Palolem beach is known for its calm waters and for its nightlife, including silent discos where partygoers wear headphones. It is lined with palm trees and colorful wooden shacks',
         locationCoordinates: LatLng(15.0100, 74.0232),
-        thumbnail: 'Pamolem.jpg'
+        thumbnail: 'Palolem.jpg'
     ),
 
     Locations(
