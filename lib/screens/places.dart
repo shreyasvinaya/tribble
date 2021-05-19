@@ -24,7 +24,7 @@ class _PlacesState extends State<Places> {
         address: 'North Goa',
         description: 'Candolim is known for Candolim Beach and, to the north, lively Calangute Beach. In the south, the sturdy walls of Aguada Fort, built in the early 1600s under Portuguese colonial rule',
         locationCoordinates: LatLng(15.515447, 73.768402),
-        thumbnail: 'https://i.onthebeach.co.uk/v1/destination/35e1e2e7-6eac-4eeb-a568-ba8921aa6d17/contain/1200/360/medium/1.0/candolim-holidays'
+        thumbnail: 'Candolim.jpg'
     ),
 
     Locations(
@@ -32,7 +32,7 @@ class _PlacesState extends State<Places> {
         address: 'North Goa',
         description: 'Called as "The Hometown of Nightlife," Baga beach is reputed for its cranky music celebrations by late-night, mouth-watering food, designer shops, and adventure sports.',
         locationCoordinates: LatLng(15.5553, 73.7517),
-        thumbnail: 'https://images.firstpost.com/wp-content/uploads/2019/02/goa-baga-beach-1024.jpg'
+        thumbnail: 'Baga.jpg'
     ),
 
     Locations(
@@ -40,7 +40,7 @@ class _PlacesState extends State<Places> {
         address: 'North Goa',
         description: 'Vagator beach is adorned with red cliffs that look down to two freshwater springs. It has several small stalls that sell clothes, food and an assortment of trinkets and souvenirs',
         locationCoordinates: LatLng(15.6030, 73.7336),
-        thumbnail: 'https://cfda.imgix.net/2016/09/W-GOA-Rockpool.jpg'
+        thumbnail: 'Vagator.jpg'
     ),
 
     Locations(
@@ -48,7 +48,7 @@ class _PlacesState extends State<Places> {
         address: 'South Goa',
         description: 'Bogmalo beach is situated in a small bay with around a mile of curving sandy beach. The beach is located about 4 kilometres from Dabolim Airport',
         locationCoordinates: LatLng(15.369722, 73.833611),
-        thumbnail: 'https://static.toiimg.com/photo/msid-29609663,width-96,height-65.cms'
+        thumbnail: 'Bogmalo.jpg'
     ),
 
     Locations(
@@ -56,7 +56,7 @@ class _PlacesState extends State<Places> {
         address: 'South Goa',
         description: 'Palolem beach is known for its calm waters and for its nightlife, including silent discos where partygoers wear headphones. It is lined with palm trees and colorful wooden shacks',
         locationCoordinates: LatLng(15.0100, 74.0232),
-        thumbnail: 'https://www.bizevdeyokuz.com/wp-content/uploads/palolem-beach-south-goa-india-1155x675.jpg'
+        thumbnail: 'Pamolem.jpg'
     ),
 
     Locations(
@@ -64,7 +64,7 @@ class _PlacesState extends State<Places> {
         address: 'South Goa',
         description: 'Margaos Portuguese past is evident in buildings like the Baroque Holy Spirit Church. Sat Burzam Ghor is a grand 1700s mansion with 3 of its original 7 gables remaining.',
         locationCoordinates: LatLng(15.2832, 73.9862),
-        thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/9/99/0734_Margao_2006-02-17_13-34-03_%2810544796063%29.jpg'
+        thumbnail: 'Margao.jpg'
     ),
 
   ];
@@ -147,9 +147,7 @@ class _PlacesState extends State<Places> {
                                             topLeft: Radius.circular(10.0),
                                           ),
                                           image: DecorationImage(
-                                              image: NetworkImage(
-                                                  destinations[index].thumbnail
-                                              ),
+                                              image: AssetImage("assets/${destinations[index].thumbnail}"),
                                               fit: BoxFit.cover
                                           )
                                       )
@@ -209,7 +207,7 @@ class _PlacesState extends State<Places> {
             child: GoogleMap(
               initialCameraPosition: CameraPosition(
                 target: LatLng(15.4, 73.8),
-                zoom: 14,
+                zoom: 16,
                 tilt: 20,
               ),
               markers: Set.from(allDestinationMarkers),
