@@ -38,6 +38,14 @@
           }
         },
         {
+          "client_id": "378755349333-ofob4gfnqbj18fkatgv2agi5u4bs2m9h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tribble",
+            "certificate_hash": "3587725799054bee58bdd72c757672b580e0f7bf"
+          }
+        },
+        {
           "client_id": "378755349333-brg43d6abnbrhqp1r7upkk88dug8g7nf.apps.googleusercontent.com",
           "client_type": 3
         }
