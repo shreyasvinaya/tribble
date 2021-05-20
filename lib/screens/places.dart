@@ -1,89 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tribble/screens/pickup_locations.dart';
+import 'package:tribble/screens/places_class.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
-
+class Places extends StatefulWidget {
+  Places({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _PlacesState createState() => _PlacesState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PlacesState extends State<Places> {
 
   GoogleMapController _controller;
-  List<Marker> allMarkers = [];
+  List<Marker> allDestinationMarkers = [];
   PageController _pageController;
   int prevPage;
 
-  final List<Locations> pickupLocations = [
-
+  final List<Locations> destinations = [
     Locations(
-        shopName: 'GoiCar - Car Rentals',
-        address: 'South Goa',
-        description: 'Office F1, First Floor, El-Capitan Centre, Near Mapusa Court, North Goa, Mapusa, Bardez, Goa, Mapuca, Goa, India 403507\nPhone: 9860122226',
-        locationCoordinates: LatLng(15.5935975612, 73.8138878345),
-        thumbnail: 'GoiCar.png'
-    ),
-
-    Locations(
-        shopName: 'Joes Car Rental Goa',
-        address: 'South Goa',
-        description: 'Casa Royale, Shop No 5,Near Dabolim Airport, Goa, Dabolim, Goa 403711',
-        locationCoordinates: LatLng(15.39308, 73.81816),
-        thumbnail: 'joescar.jpg'
-    ),
-
-    Locations(
-        shopName: 'Lucky Ali Car Hire Service',
-        address: 'South Goa',
-        description: 'Dabolim Airport, Vasco da Gama, Goa 403802. Phone- 9730764818',
-        locationCoordinates: LatLng(15.3899, 73.8253),
-        thumbnail: 'LuckyAli.jpg'
-    ),
-
-    Locations(
-        shopName: 'Car4Hires',
-        address: 'South Goa',
-        description: 'Zuari Road, Maimollem, Mormugao, Goa, 403802. Phone- 7528904589',
-        locationCoordinates: LatLng(15.387616630175167, 73.82024343518475),
-        thumbnail: 'Car4Hire.png'
-    ),
-
-    Locations(
-        shopName: 'Comfort Car Rental',
-        address: 'South Goa',
-        description: 'Umiya Quatro - D, Office No. 25, Upper, goa international airport Green Valley, Dabolim, Goa 403801. Phone- 9823086404',
-        locationCoordinates: LatLng(15.387357158054131, 73.84500889791742),
-        thumbnail: 'ComfortRental.png'
-    ),
-
-    Locations(
-        shopName: 'Vailankanni Auto Hires',
+        Name: 'Aguada Fort and Candolim',
         address: 'North Goa',
-        description: 'Saint Joseph Apartments, A-5, Camotim Vaddo, Candolim, Goa 403515. Phone- 9822101598',
-        locationCoordinates: LatLng(15.521544407569099, 73.76700327815014),
-        thumbnail: 'Vailankanni.png'
+        description: 'Candolim is known for Candolim Beach and, to the north, lively Calangute Beach. In the south, the sturdy walls of Aguada Fort, built in the early 1600s under Portuguese colonial rule',
+        locationCoordinates: LatLng(15.515447, 73.768402),
+        thumbnail: 'Candolim.jpg'
+    ),
+
+    Locations(
+        Name: 'Baga beach',
+        address: 'North Goa',
+        description: 'Called as "The Hometown of Nightlife," Baga beach is reputed for its cranky music celebrations by late-night, mouth-watering food, designer shops, and adventure sports.',
+        locationCoordinates: LatLng(15.5553, 73.7517),
+        thumbnail: 'Baga.jpg'
+    ),
+
+    Locations(
+        Name: 'Vagator Beach',
+        address: 'North Goa',
+        description: 'Vagator beach is adorned with red cliffs that look down to two freshwater springs. It has several small stalls that sell clothes, food and an assortment of trinkets and souvenirs',
+        locationCoordinates: LatLng(15.6030, 73.7336),
+        thumbnail: 'Vagator.jpg'
+    ),
+
+    Locations(
+        Name: 'Bogmalo Beach',
+        address: 'South Goa',
+        description: 'Bogmalo beach is situated in a small bay with around a mile of curving sandy beach. The beach is located about 4 kilometres from Dabolim Airport',
+        locationCoordinates: LatLng(15.369722, 73.833611),
+        thumbnail: 'Bogmalo.jpg'
+    ),
+
+    Locations(
+        Name: 'Palolem Beach',
+        address: 'South Goa',
+        description: 'Palolem beach is known for its calm waters and for its nightlife, including silent discos where partygoers wear headphones. It is lined with palm trees and colorful wooden shacks',
+        locationCoordinates: LatLng(15.0100, 74.0232),
+        thumbnail: 'Palolem.jpg'
+    ),
+
+    Locations(
+        Name: 'Margao',
+        address: 'South Goa',
+        description: 'Margaos Portuguese past is evident in buildings like the Baroque Holy Spirit Church. Sat Burzam Ghor is a grand 1700s mansion with 3 of its original 7 gables remaining.',
+        locationCoordinates: LatLng(15.2832, 73.9862),
+        thumbnail: 'Margao.jpg'
     ),
 
   ];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    pickupLocations.forEach((element)
+    destinations.forEach((element)
     {
-      allMarkers.add(
+      allDestinationMarkers.add(
           Marker(
-            markerId: MarkerId(element.shopName),
+            markerId: MarkerId(element.Name),
             draggable: false,
-            infoWindow: InfoWindow( title: element.shopName, snippet: element.address),
+            infoWindow: InfoWindow( title: element.Name, snippet: element.address),
             position: element.locationCoordinates
-        ));
-      }
+      ));
+    }
     );
     _pageController = PageController(initialPage:1, viewportFraction: 0.8)..addListener(scrollListener);
   }
@@ -95,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  _pickupLocationsList(index) {
+  _destinationsList(index) {
     return AnimatedBuilder(
         animation: _pageController,
         builder: (BuildContext context, Widget widget) {
@@ -114,9 +110,8 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, '/carselect', arguments: pickupLocations[index].locationCoordinates);
-              GlobalConfiguration().updateValue('location', pickupLocations[index].shopName);
-              },
+              moveCamera();
+            },
             child: Stack(
                 children: [
                   Center(
@@ -151,8 +146,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                             topLeft: Radius.circular(10.0),
                                           ),
                                           image: DecorationImage(
-                                              image: AssetImage("assets/${pickupLocations[index].thumbnail}"),
-                                              fit: BoxFit.contain
+                                              image: AssetImage("assets/${destinations[index].thumbnail}"),
+                                              fit: BoxFit.cover
                                           )
                                       )
                                   ),
@@ -161,23 +156,23 @@ class _MyHomePageState extends State<MyHomePage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        pickupLocations[index].shopName,
+                                        destinations[index].Name,
                                         style: TextStyle(
-                                            fontSize: 14,
+                                            fontSize: 13,
                                             fontWeight: FontWeight.bold
                                         ),
                                       ),Text(
-                                        pickupLocations[index].address,
+                                        destinations[index].address,
                                         style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.bold
                                         ),
                                       ),Container(
                                         width: 160.0,
                                         child: Text(
-                                          pickupLocations[index].description,
+                                          destinations[index].description,
                                           style: TextStyle(
-                                            fontSize: 12,
+                                            fontSize: 11,
                                           ),
                                         ),
                                       ),
@@ -197,6 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
 
       body:
@@ -209,10 +205,10 @@ class _MyHomePageState extends State<MyHomePage> {
             child: GoogleMap(
               initialCameraPosition: CameraPosition(
                 target: LatLng(15.4, 73.8),
-                zoom: 13,
+                zoom: 16,
                 tilt: 20,
               ),
-              markers: Set.from(allMarkers),
+              markers: Set.from(allDestinationMarkers),
               onMapCreated: mapCreated,
             ),
           ),
@@ -224,9 +220,9 @@ class _MyHomePageState extends State<MyHomePage> {
               width: MediaQuery.of(context).size.width,
               child: PageView.builder(
                   controller : _pageController,
-                  itemCount: pickupLocations.length,
+                  itemCount: destinations.length,
                   itemBuilder: (BuildContext context, int index){
-                    return _pickupLocationsList(index);
+                    return _destinationsList(index);
                   }
               ),
 
@@ -244,12 +240,14 @@ class _MyHomePageState extends State<MyHomePage> {
       _controller = controller;
     });
   }
+
   moveCamera() {
     _controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: pickupLocations[_pageController.page.toInt()].locationCoordinates,
+        CameraPosition(
+          target: destinations[_pageController.page.toInt()].locationCoordinates,
           zoom: 15,
-          tilt: 45,
-          bearing: 30,)
+          tilt: 15,
+          bearing: 10,)
     ));
   }
 

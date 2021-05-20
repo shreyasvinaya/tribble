@@ -48,9 +48,9 @@ class Checkout extends StatelessWidget {
                         color: Colors.white,
                       ),
                       SizedBox(width: 8.0,),
-                      Text("BITS Goa",
+                      Text("${GlobalConfiguration().get("location")}",
                       style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 22.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),),
@@ -161,38 +161,42 @@ class Checkout extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.center,
-                child: Container(
-                  height: 150.0,
-                  width: MediaQuery.of(context).size.width-30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                    color: Color(0xff0B1F42).withOpacity(0.7),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text("Top places to\nvisit in Goa",
-                        style: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
-                        ),
-                        // SizedBox(width: 15.0,),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/goaDest');
+                  },
+                  child: Container(
+                    height: 150.0,
+                    width: MediaQuery.of(context).size.width-30,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Color(0xff0B1F42).withOpacity(0.7),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text("Top places to\nvisit in Goa",
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                          ),
+                          // SizedBox(width: 15.0,),
                         Container(
-                          height: 130.0,
-                          width: 170.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            image: DecorationImage(
-                              image: AssetImage('assets/map.jpg'),
-                              fit: BoxFit.cover,
+                            height: 130.0,
+                            width: 170.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              image: DecorationImage(
+                                image: AssetImage('assets/map.jpg'),
+                                fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                      ],
+                        ),],
+                      ),
                     ),
                   ),
                 ),

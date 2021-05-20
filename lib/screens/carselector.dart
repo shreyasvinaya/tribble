@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'dart:async';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:tribble/blocs/auth_bloc.dart';
@@ -45,6 +44,7 @@ class Carselector extends State<HomeScreen> {
   }
 
   @override
+
   List<Car> cars = [
     Car(type: "Standard", price: "200", image: "standard.png"),
     Car(type: "MiniVan", price: "300", image: "minivan.png"),
@@ -54,6 +54,16 @@ class Carselector extends State<HomeScreen> {
   ];
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
+    LatLng coordinates = ModalRoute.of(context).settings.arguments;
+    Set<Marker> _createMarker() {
+      return {
+        Marker(
+            markerId: MarkerId("marker"),
+            position: LatLng(coordinates.latitude, coordinates.longitude),
+            infoWindow: InfoWindow(title: 'Your Pickup Location'),
+        ),
+      };
+    }
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -63,37 +73,17 @@ class Carselector extends State<HomeScreen> {
               if (!snapshot.hasData) return CircularProgressIndicator();
               print(snapshot.data.photoURL);
               return Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // children: [
-                //   // Text(snapshot.data.displayName,
-                //   //     style: TextStyle(fontSize: 35.0)),
-                //   // SizedBox(
-                //   //   height: 20.0,
-                //   // ),
-                //   CircleAvatar(
-                //     backgroundImage: NetworkImage(
-                //         snapshot.data.photoURL.replaceFirst('s96', 's400')),
-                //     radius: 60.0,
-                //   ),
-                //   SizedBox(
-                //     height: 100.0,
-                //   ),
-                //   SignInButton(Buttons.Google,
-                //       text: 'Sign Out of Google',
-                //       onPressed: () => authBloc.logout())
-                // ],
-
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
-                    child: FlatButton.icon(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        minWidth: MediaQuery.of(context).size.width - 30,
+                    child: FlatButton.icon(onPressed: () {
+                      Navigator.pop(context);
+                    },
+                        minWidth: MediaQuery.of(context).size.width-30,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
+                            borderRadius: BorderRadius.circular(20.0)
+                        ),
                         color: Colors.grey[800],
                         icon: Icon(
                           Icons.add_location_sharp,
@@ -102,8 +92,7 @@ class Carselector extends State<HomeScreen> {
                         ),
                         label: Column(
                           children: [
-                            Text(
-                              "BITS Goa",
+                            Text("${GlobalConfiguration().get("location")}",
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -111,84 +100,91 @@ class Carselector extends State<HomeScreen> {
                                 color: Colors.white70,
                               ),
                             ),
-                            Text(
-                              "\tChange Location!",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
+                            Text("\tChange Location!",
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),),
+                            SizedBox(height: 5.0,),
                           ],
                         )),
                   ),
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
-                          image: DecorationImage(
-                              image: AssetImage('assets/map.jpg'),
-                              fit: BoxFit.cover)),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CircleAvatar(
-                                  backgroundImage: NetworkImage(snapshot
+              child: Stack(
+                children: [
+                  GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(coordinates.latitude, coordinates.longitude),
+                      zoom: 13,
+                      tilt: 30,
+                      bearing: 20,
+                    ),
+                    markers: _createMarker(),
+                  ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(snapshot
                                       .data.photoURL
                                       .replaceFirst('s96', 's400')),
-                                  radius: 25.0,
-                                ),
-                              ],
-                            ),
-                            Container(
-                              height: 250.0,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: cars.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, '/timeselect');
-                                        GlobalConfiguration().updateValue(
-                                            "type", cars[index].type);
-                                        GlobalConfiguration().updateValue(
-                                            "price", cars[index].price);
-                                        GlobalConfiguration().updateValue(
-                                            "image", cars[index].image);
-                                      },
-                                      child: Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            0.0, 10.0, 17.0, 17.0),
-                                        width: 200,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          color: Colors.blue[100],
-                                        ),
-                                        child: Stack(
-                                          alignment: Alignment.topCenter,
-                                          children: [
-                                            Positioned(
-                                              bottom: 10.0,
-                                              child: Container(
-                                                height: 100.0,
-                                                width: 150.0,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black12,
-                                                      offset: Offset(7.0, 7.0),
-                                                    ),
-                                                  ],
-                                                  color: Colors.blue[300],
+                            radius: 25.0,
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 250.0,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: cars.length,
+                            itemBuilder: (context,index){
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/timeselect');
+                                  GlobalConfiguration().updateValue("type", cars[index].type);
+                                  GlobalConfiguration().updateValue("price", cars[index].price);
+                                  GlobalConfiguration().updateValue("image", cars[index].image);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(0.0, 10.0, 17.0, 17.0),
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    color: Colors.blue[100],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.topCenter,
+                                    children: [
+                                      Positioned(
+                                        bottom: 10.0,
+                                        child: Container(
+                                          height: 100.0,
+                                          width: 150.0,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20.0),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black12,
+                                                offset: Offset(7.0,7.0),
+                                              ),
+                                            ],
+                                            color: Colors.blue[300],
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 0.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text("${cars[index].type}",
+                                                  style: TextStyle(
+                                                    fontSize: 20.0,
+                                                    letterSpacing: 1.5,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                                 child: Padding(
                                                   padding: EdgeInsets.fromLTRB(
@@ -245,7 +241,10 @@ class Carselector extends State<HomeScreen> {
                 ],
               );
             }),
-      ),
-    );
+                ),
+                ],
+              ),
+            ),
+        ),
   }
 }

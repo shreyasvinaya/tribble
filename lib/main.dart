@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tribble/screens/places.dart';
 import 'package:tribble/screens/shoplocations.dart';
 import 'package:tribble/screens/carselector.dart';
 import 'package:tribble/screens/checkout.dart';
@@ -33,13 +34,14 @@ class Material1App extends StatelessWidget {
         ),
         routes: {
           "/": (context) => LoginScreen(),
-          // "/": (context) => MyHomePage(),
+          "/pickup": (context) => MyHomePage(),
           "/carselect": (context) => HomeScreen(),
           "/checkout": (context) => Checkout(),
           "/timeselect": (context) => Timeselector(),
           "/timetype": (context) => Timetype(),
           "/hours": (context) => Hours(),
           "/days": (context) => Days(),
+          "/goaDest": (context) => Places(),
         },
       ),
     );
