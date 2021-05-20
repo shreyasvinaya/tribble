@@ -50,7 +50,7 @@ class Checkout extends StatelessWidget {
                       SizedBox(width: 8.0,),
                       Text("${GlobalConfiguration().get("location")}",
                       style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 22.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),),

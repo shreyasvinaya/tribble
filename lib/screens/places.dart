@@ -116,9 +116,9 @@ class _PlacesState extends State<Places> {
                 children: [
                   Center(
                       child: Container(
-                          margin: EdgeInsets.symmetric( horizontal: 10.0, vertical: 20.0),
-                          height: 125.0,
-                          width:  275.0,
+                          margin: EdgeInsets.symmetric( horizontal: 7.0, vertical: 20.0),
+                          height: 140.0,
+                          width:  290.0,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
                               boxShadow: [
@@ -132,9 +132,10 @@ class _PlacesState extends State<Places> {
                           child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.white,
+                                color: Colors.grey[300],
                               ),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Container(
                                       height: 120.0,
@@ -150,7 +151,6 @@ class _PlacesState extends State<Places> {
                                           )
                                       )
                                   ),
-                                  SizedBox(width: 10.0),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment: CrossAxisAlignment.start,

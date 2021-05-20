@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Locations(
         shopName: 'GoiCar - Car Rentals',
         address: 'South Goa',
-        description: 'Office F1, First Floor, El-Capitan Centre, Near Mapusa Court, North Goa, Mapusa, Bardez, Goa, Mapuca, Goa, India 403507\nPhone: 9860122226 (www.goicar.in/)',
+        description: 'Office F1, First Floor, El-Capitan Centre, Near Mapusa Court, North Goa, Mapusa, Bardez, Goa, Mapuca, Goa, India 403507\nPhone: 9860122226',
         locationCoordinates: LatLng(15.5935975612, 73.8138878345),
         thumbnail: 'GoiCar.png'
     ),
@@ -121,9 +121,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Center(
                       child: Container(
-                          margin: EdgeInsets.symmetric( horizontal: 10.0, vertical: 20.0),
-                          height: 125.0,
-                          width:  275.0,
+                          margin: EdgeInsets.symmetric( horizontal: 7.0, vertical: 20.0),
+                          height: 140.0,
+                          width:  290.0,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
                               boxShadow: [
@@ -137,9 +137,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.white,
+                                color: Colors.grey[300],
                               ),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Container(
                                       height: 120.0,
@@ -155,7 +156,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                           )
                                       )
                                   ),
-                                  SizedBox(width: 10.0),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,13 +163,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                       Text(
                                         pickupLocations[index].shopName,
                                         style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold
                                         ),
                                       ),Text(
                                         pickupLocations[index].address,
                                         style: TextStyle(
-                                            fontSize: 12,
+                                            fontSize: 13,
                                             fontWeight: FontWeight.bold
                                         ),
                                       ),Container(
@@ -177,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: Text(
                                           pickupLocations[index].description,
                                           style: TextStyle(
-                                            fontSize: 11,
+                                            fontSize: 12,
                                           ),
                                         ),
                                       ),
