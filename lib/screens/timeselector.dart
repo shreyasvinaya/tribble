@@ -8,7 +8,7 @@ class Timeselector extends StatefulWidget {
 
 class _TimeselectorState extends State<Timeselector> {
   String type = "Hours";
-  String num = "7";
+  int num = 7;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,7 +52,7 @@ class _TimeselectorState extends State<Timeselector> {
                       },
                       child: Container(
                         height: 100.0,
-                        width: MediaQuery.of(context).size.width-200,
+                        width: MediaQuery.of(context).size.width-210,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           color: Colors.cyan[700].withOpacity(0.8),
@@ -78,43 +78,62 @@ class _TimeselectorState extends State<Timeselector> {
                       ),
                     ),
                     SizedBox(height: 40.0,),
-                    InkWell(
-                      onTap: () async{
-                        String something = '/days';
-                        if(type == "Hours"){
-                          something = '/hours';
-                        }
-                        dynamic result = await Navigator.pushNamed(context, something);
-                        setState(() {
-                          num = result["number"];
-                        });
-                      },
-                      child: Container(
-                        height: 100.0,
-                        width: MediaQuery.of(context).size.width-250,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          color: Colors.cyan[700].withOpacity(0.8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        FloatingActionButton(onPressed: () {
+                          setState(() {
+                            if(num > 1){
+                              num -= 1;
+                            }
+                            else {
+                              num = num;
+                            }
+                          });
+                        },
+                          backgroundColor: Colors.greenAccent,
+                          elevation: 0.0,
+                          child: Icon(
+                            Icons.remove,
+                            color: Colors.white,
+                            size: 40.0,
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(width: 10.0,),
-                            Text("$num",
+                        SizedBox(width: 15.0,),
+                        Container(
+                          height: 80.0,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: Colors.cyan[700].withOpacity(0.8),
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text("$num",
                               style: TextStyle(
                                   fontSize: 40.0,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold
                               ),
                             ),
-                            Icon(
-                              Icons.arrow_drop_down_outlined,
-                              color: Colors.white,
-                              size: 55.0,
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
+                        SizedBox(width: 15.0,),
+                        FloatingActionButton(onPressed: () {
+                          setState(() {
+                            num += 1;
+                          });
+                        },
+                          backgroundColor: Colors.greenAccent,
+                          elevation: 0.0,
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 40.0,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

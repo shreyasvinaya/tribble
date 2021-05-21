@@ -7,7 +7,7 @@ class Checkout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dataReceived = ModalRoute.of(context).settings.arguments;
-    int num = int.parse(dataReceived["number"]);
+    int num = dataReceived["number"];
     int perhr = int.parse(GlobalConfiguration().get("price"));
     int cost;
     if(dataReceived["timeType"] == "Hours"){
