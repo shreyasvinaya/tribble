@@ -208,8 +208,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
             child: GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: LatLng(15.4, 73.8),
-                zoom: 13,
+                target: LatLng(15.3911, 73.8782),
+                zoom: 15,
                 tilt: 20,
               ),
               markers: Set.from(allMarkers),

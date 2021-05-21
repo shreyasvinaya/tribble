@@ -206,7 +206,7 @@ class _PlacesState extends State<Places> {
             child: GoogleMap(
               compassEnabled: false,
               initialCameraPosition: CameraPosition(
-                target: LatLng(15.4, 73.8),
+                target: LatLng(15.3911, 73.8782),
                 zoom: 16,
                 tilt: 20,
               ),
@@ -250,6 +250,16 @@ class _PlacesState extends State<Places> {
     ));
   }
 
+  moveCameraToBITS() {
+    _controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(15.3911, 73.8782),
+          zoom: 15,
+          tilt: 15,
+          bearing: 10,)
+    ));
+  }
+
   Widget buildFloatingSearchBar() {
     final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
 
@@ -276,7 +286,7 @@ class _PlacesState extends State<Places> {
           child: CircularButton(
             icon: const Icon(Icons.place),
             onPressed: () {
-              moveCamera();
+              moveCameraToBITS();
             },
           ),
         ),
