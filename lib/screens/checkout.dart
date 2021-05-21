@@ -38,7 +38,7 @@ class Checkout extends StatelessWidget {
                   width: MediaQuery.of(context).size.width-30.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: Color(0xff0A2A73).withOpacity(0.8),
+                    color: Color(0xff082932).withOpacity(0.8),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -50,11 +50,11 @@ class Checkout extends StatelessWidget {
                       ),
                       SizedBox(width: 8.0,),
                       Text("${GlobalConfiguration().get("location")}",
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),),
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),),
                     ],
                   ),
                 ),
@@ -68,7 +68,7 @@ class Checkout extends StatelessWidget {
                       width: MediaQuery.of(context).size.width/2-15,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.tealAccent,
+                        color: Colors.teal[600].withOpacity(0.7),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -79,10 +79,10 @@ class Checkout extends StatelessWidget {
                           ),
                           SizedBox(width: 5.0,),
                           Text("${dataReceived["number"]} ${dataReceived["timeType"]}",
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ],
                       ),
@@ -93,23 +93,23 @@ class Checkout extends StatelessWidget {
                       width: MediaQuery.of(context).size.width/2-20,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.teal,
+                        color: Colors.teal[600].withOpacity(0.7),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("₹",
-                          style: TextStyle(
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.w600,
-                          ),
+                            style: TextStyle(
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                           SizedBox(width: 5.0,),
                           Text("$cost",
-                          style:TextStyle(
-                            fontSize: 23.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                            style:TextStyle(
+                              fontSize: 23.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           )
                         ],
                       ),
@@ -124,7 +124,7 @@ class Checkout extends StatelessWidget {
                   width: MediaQuery.of(context).size.width-30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: Color(0xff082932).withOpacity(0.9),
+                    color: Color(0xff082932).withOpacity(0.7),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,20 +139,20 @@ class Checkout extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("${GlobalConfiguration().get("type")}",
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2.0,
-                            color: Colors.white,
-                          ),
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 2.0,
+                              color: Colors.white,
+                            ),
                           ),
                           SizedBox(height: 25.0,),
                           Text("₹ ${GlobalConfiguration().get("price")}/hr",
-                          style: TextStyle(
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),
+                            style: TextStyle(
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                            ),
                           )
                         ],
                       ),
