@@ -16,6 +16,9 @@ class Checkout extends StatelessWidget {
     else{
       cost = perhr*num*24;
     }
+    var date = DateTime.now().toString();
+    var dateParse = DateTime.parse(date);
+    var formattedDate = "${dateParse.day}/${dateParse.month}/${dateParse.year}";
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -224,21 +227,32 @@ class Checkout extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 15.0,),
-                    Container(
-                      height: 90.0,
-                      width: MediaQuery.of(context).size.width/2+70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25.0),
-                        color: Colors.black,
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Rent now",
-                          style: TextStyle(
-                            fontSize: 23.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushReplacementNamed(context, '/confirm', arguments: {
+                          "carType": GlobalConfiguration().get("type"),
+                          "price": GlobalConfiguration().get("price"),
+                          "pickup": GlobalConfiguration().get("location"),
+                          "timeDuration": "${dataReceived["number"]} ${dataReceived["timeType"]}",
+                          "date": formattedDate.toString(),
+                        });
+                      },
+                      child: Container(
+                        height: 90.0,
+                        width: MediaQuery.of(context).size.width/2+70,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.0),
+                          color: Colors.black,
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Rent now",
+                            style: TextStyle(
+                              fontSize: 23.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                            ),
                           ),
                         ),
                       ),

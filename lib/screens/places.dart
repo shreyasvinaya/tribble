@@ -231,7 +231,7 @@ class _PlacesState extends State<Places> {
           ),
           Positioned(
             top: 80.0,
-            left: MediaQuery.of(context).size.width-60.0,
+            left: MediaQuery.of(context).size.width-70.0,
             child: InkWell(
               onTap: () {
                 String map_type = "night";
@@ -247,11 +247,20 @@ class _PlacesState extends State<Places> {
                 });
               },
               child: Container(
-                height: 50.0,
-                width: 50.0,
+                height: 60.0,
+                width: 60.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.amber,
+                  color: Colors.grey[400],
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text("Switch\nTheme",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15.0,
+                    ),),
                 ),
               ),
             ),

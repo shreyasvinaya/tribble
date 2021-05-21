@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tribble/screens/confirmation.dart';
 import 'package:tribble/screens/places.dart';
 import 'package:tribble/screens/shoplocations.dart';
 import 'package:tribble/screens/carselector.dart';
@@ -39,6 +40,7 @@ class Material1App extends StatelessWidget {
           // "/hours": (context) => Hours(),
           // "/days": (context) => Days(),
           "/goaDest": (context) => Places(),
+          "/confirm": (context) => Confirm(),
         },
       ),
     );
