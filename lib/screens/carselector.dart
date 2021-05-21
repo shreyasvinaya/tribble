@@ -121,7 +121,7 @@ class Carselector extends State<HomeScreen> {
                         initialCameraPosition: CameraPosition(
                           target: LatLng(
                               coordinates.latitude, coordinates.longitude),
-                          zoom: 13,
+                          zoom: 14,
                           tilt: 30,
                           bearing: 20,
                         ),

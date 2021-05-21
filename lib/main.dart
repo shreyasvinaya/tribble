@@ -27,11 +27,8 @@ class Material1App extends StatelessWidget {
       create: (context) => AuthBloc(),
       child: MaterialApp(
         title: 'Tribble',
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        theme: ThemeData(),
+        darkTheme: ThemeData.dark(),
         routes: {
           "/": (context) => LoginScreen(),
           "/pickup": (context) => MyHomePage(),

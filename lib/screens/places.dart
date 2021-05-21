@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tribble/screens/places_class.dart';
+import 'package:flutter/services.dart';
 
 class Places extends StatefulWidget {
   Places({Key key}) : super(key: key);
@@ -238,7 +239,16 @@ class _PlacesState extends State<Places> {
   void mapCreated(controller){
     setState(() {
       _controller = controller;
+      getJson('assets/map_styles/night.json').then(setMapStyle);
     });
+  }
+
+  Future<String> getJson(String path) async{
+    return await rootBundle.loadString(path);
+  }
+
+  void setMapStyle(String mapStyle){
+    _controller.setMapStyle(mapStyle);
   }
 
   moveCamera() {

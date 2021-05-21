@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tribble/screens/pickup_locations.dart';
+import 'package:flutter/services.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -164,13 +165,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                         pickupLocations[index].shopName,
                                         style: TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.bold
+                                            fontWeight: FontWeight.bold,
+                                          color: Colors.black,
                                         ),
                                       ),Text(
                                         pickupLocations[index].address,
                                         style: TextStyle(
                                             fontSize: 13,
-                                            fontWeight: FontWeight.bold
+                                            fontWeight: FontWeight.bold,
+                                          color: Colors.black,
                                         ),
                                       ),Container(
                                         width: 160.0,
@@ -178,6 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           pickupLocations[index].description,
                                           style: TextStyle(
                                             fontSize: 12,
+                                            color: Colors.black,
                                           ),
                                         ),
                                       ),
@@ -242,8 +246,18 @@ class _MyHomePageState extends State<MyHomePage> {
   void mapCreated(controller){
     setState(() {
       _controller = controller;
+      getJson('assets/map_styles/night.json').then(setMapStyle);
     });
   }
+
+  Future<String> getJson(String path) async{
+    return await rootBundle.loadString(path);
+  }
+
+  void setMapStyle(String mapStyle){
+    _controller.setMapStyle(mapStyle);
+  }
+
   moveCamera() {
     _controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: pickupLocations[_pageController.page.toInt()].locationCoordinates,
