@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Checkout extends StatelessWidget {
   Map dataReceived = {};
@@ -146,7 +147,7 @@ class Checkout extends StatelessWidget {
                           ),
                           ),
                           SizedBox(height: 25.0,),
-                          Text("₹ ${GlobalConfiguration().get("price")}",
+                          Text("₹ ${GlobalConfiguration().get("price")}/hr",
                           style: TextStyle(
                             fontSize: 22.0,
                             fontWeight: FontWeight.bold,
@@ -166,7 +167,7 @@ class Checkout extends StatelessWidget {
                     Navigator.pushNamed(context, '/goaDest');
                   },
                   child: Container(
-                    height: 150.0,
+                    height: 200.0,
                     width: MediaQuery.of(context).size.width-30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
@@ -174,28 +175,54 @@ class Checkout extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text("Top places to\nvisit in Goa",
+                          Text("Top places to visit in Goa",
                           style: TextStyle(
                             fontSize: 22.0,
                             fontWeight: FontWeight.w500,
                             color: Colors.white,
                           ),
                           ),
-                          // SizedBox(width: 15.0,),
-                        Container(
-                            height: 130.0,
-                            width: 170.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              image: DecorationImage(
-                                image: AssetImage('assets/map.jpg'),
-                                fit: BoxFit.cover,
+                          Container(
+                            height: 170.0,
+                            width: 300.0,
+                            child: CarouselSlider(
+                              options: CarouselOptions(
+                                height: 150,
+                                aspectRatio: 16/9,
+                                viewportFraction: 0.8,
+                                initialPage: 0,
+                                enableInfiniteScroll: true,
+                                reverse: false,
+                                autoPlay: true,
+                                autoPlayInterval: Duration(seconds: 2),
+                                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                enlargeCenterPage: true,
+                                scrollDirection: Axis.horizontal,
+                              ),
+                              items: ['Baga.jpg', 'Bogmalo.jpg', 'Candolim.jpg', 'Margao.jpg', 'Palolem.jpg', 'Vagator.jpg'].map((i) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                        decoration: BoxDecoration(
+                                            color: Colors.indigo[900],
+                                          image: DecorationImage(
+                                            image: AssetImage('assets/$i'),
+                                          ),
+                                        ),
+                                    );
+                                  },
+                                );
+                              }).toList(),
                             ),
-                          ),
-                        ),],
+                          )
+                          // SizedBox(width: 15.0,),
+                        ],
                       ),
                     ),
                   ),
