@@ -16,6 +16,7 @@ class _PlacesState extends State<Places> {
   List<Marker> allDestinationMarkers = [];
   PageController _pageController;
   int prevPage;
+  int num = 1;
 
   final List<Locations> destinations = [
     Locations(
@@ -226,8 +227,33 @@ class _PlacesState extends State<Places> {
                     return _destinationsList(index);
                   }
               ),
-
-
+            ),
+          ),
+          Positioned(
+            top: 80.0,
+            left: MediaQuery.of(context).size.width-60.0,
+            child: InkWell(
+              onTap: () {
+                String map_type = "night";
+                if(num%2 == 0){
+                  map_type = "night";
+                }
+                else{
+                  map_type = "retro";
+                }
+                setState(() {
+                  num += 1;
+                  getJson('assets/map_styles/$map_type.json').then(setMapStyle);
+                });
+              },
+              child: Container(
+                height: 50.0,
+                width: 50.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.amber,
+                ),
+              ),
             ),
           ),
         ],
