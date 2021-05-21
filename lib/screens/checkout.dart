@@ -167,7 +167,7 @@ class Checkout extends StatelessWidget {
                     Navigator.pushNamed(context, '/goaDest');
                   },
                   child: Container(
-                    height: 200.0,
+                    height: 220.0,
                     width: MediaQuery.of(context).size.width-30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
@@ -185,9 +185,16 @@ class Checkout extends StatelessWidget {
                             color: Colors.white,
                           ),
                           ),
+                          Text("Tap to know more",
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w200,
+                              color: Colors.white,
+                            ),
+                          ),
                           Container(
                             height: 170.0,
-                            width: 300.0,
+                            width: 400.0,
                             child: CarouselSlider(
                               options: CarouselOptions(
                                 height: 150,
@@ -210,9 +217,10 @@ class Checkout extends StatelessWidget {
                                         width: MediaQuery.of(context).size.width,
                                         margin: EdgeInsets.symmetric(horizontal: 5.0),
                                         decoration: BoxDecoration(
-                                            color: Colors.indigo[900],
+                                          borderRadius: BorderRadius.circular(7),
                                           image: DecorationImage(
                                             image: AssetImage('assets/$i'),
+                                            fit: BoxFit.fill
                                           ),
                                         ),
                                     );
