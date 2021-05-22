@@ -4,6 +4,7 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tribble/screens/pickup_locations.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -88,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
       }
     );
-    _pageController = PageController(initialPage:1, viewportFraction: 0.8)..addListener(scrollListener);
+    _pageController = PageController(initialPage:0, viewportFraction: 0.8)..addListener(scrollListener);
   }
 
   void scrollListener() {
@@ -214,8 +215,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
             child: GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: LatLng(15.4, 73.8),
-                zoom: 13,
+                target: LatLng(15.3911, 73.8782),
+                zoom: 15,
                 tilt: 20,
               ),
               markers: Set.from(allMarkers),

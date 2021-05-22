@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -177,7 +178,7 @@ class Checkout extends StatelessWidget {
                         Navigator.pushNamed(context, '/goaDest');
                       },
                       child: Container(
-                        height: 150.0,
+                        height: 220.0,
                         width: MediaQuery.of(context).size.width-30,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
@@ -185,28 +186,62 @@ class Checkout extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                          child: Row(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text("Top places to\nvisit in Goa",
+                              Text("Top places to visit in Goa",
                                 style: TextStyle(
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.white,
                                 ),
                               ),
-                              // SizedBox(width: 15.0,),
-                              Container(
-                                height: 130.0,
-                                width: 170.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  image: DecorationImage(
-                                    image: AssetImage('assets/map.jpg'),
-                                    fit: BoxFit.cover,
-                                  ),
+                              Text("Tap to know more",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w200,
+                                  color: Colors.white,
                                 ),
-                              ),],
+                              ),
+                              Container(
+                                height: 170.0,
+                                width: 400.0,
+                                child: CarouselSlider(
+                                  options: CarouselOptions(
+                                    height: 150,
+                                    aspectRatio: 16/9,
+                                    viewportFraction: 0.8,
+                                    initialPage: 0,
+                                    enableInfiniteScroll: true,
+                                    reverse: false,
+                                    autoPlay: true,
+                                    autoPlayInterval: Duration(seconds: 2),
+                                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                                    autoPlayCurve: Curves.fastOutSlowIn,
+                                    enlargeCenterPage: true,
+                                    scrollDirection: Axis.horizontal,
+                                  ),
+                                  items: ['Baga.jpg', 'Bogmalo.jpg', 'Candolim.jpg', 'Margao.jpg', 'Palolem.jpg', 'Vagator.jpg'].map((i) {
+                                    return Builder(
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(7),
+                                            image: DecorationImage(
+                                                image: AssetImage('assets/$i'),
+                                                fit: BoxFit.fill
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
+                              )
+                              // SizedBox(width: 15.0,),
+                            ],
                           ),
                         ),
                       ),

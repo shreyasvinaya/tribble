@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:tribble/screens/places_class.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:flutter/services.dart';
 
 class Places extends StatefulWidget {
@@ -76,11 +78,11 @@ class _PlacesState extends State<Places> {
     {
       allDestinationMarkers.add(
           Marker(
-            markerId: MarkerId(element.Name),
-            draggable: false,
-            infoWindow: InfoWindow( title: element.Name, snippet: element.address),
-            position: element.locationCoordinates
-      ));
+              markerId: MarkerId(element.Name),
+              draggable: false,
+              infoWindow: InfoWindow( title: element.Name, snippet: element.address),
+              position: element.locationCoordinates
+          ));
     }
     );
     _pageController = PageController(initialPage:1, viewportFraction: 0.8)..addListener(scrollListener);
@@ -205,8 +207,9 @@ class _PlacesState extends State<Places> {
             width: MediaQuery.of(context).size.width,
 
             child: GoogleMap(
+              compassEnabled: false,
               initialCameraPosition: CameraPosition(
-                target: LatLng(15.4, 73.8),
+                target: LatLng(15.3911, 73.8782),
                 zoom: 16,
                 tilt: 20,
               ),
@@ -230,7 +233,7 @@ class _PlacesState extends State<Places> {
             ),
           ),
           Positioned(
-            top: 80.0,
+            top: 120.0,
             left: MediaQuery.of(context).size.width-70.0,
             child: InkWell(
               onTap: () {
@@ -265,11 +268,10 @@ class _PlacesState extends State<Places> {
               ),
             ),
           ),
+          buildFloatingSearchBar(),
         ],
       ),
-
     );
-
   }
   void mapCreated(controller){
     setState(() {
@@ -294,6 +296,58 @@ class _PlacesState extends State<Places> {
           tilt: 15,
           bearing: 10,)
     ));
+  }
+
+  moveCameraToBITS() {
+    _controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(15.3911, 73.8782),
+          zoom: 15,
+          tilt: 15,
+          bearing: 10,)
+    ));
+  }
+
+  Widget buildFloatingSearchBar() {
+
+    return FloatingSearchBar(
+      hint: 'Search',
+      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+      transitionDuration: const Duration(milliseconds: 600),
+      transitionCurve: Curves.easeInOut,
+      axisAlignment: 0.0,
+      openAxisAlignment: 0.0,
+      width: 355,
+      height: 55,
+      debounceDelay: const Duration(milliseconds: 500),
+      onQueryChanged: (query) async{
+        List<Location> locations = await locationFromAddress(query);
+        _controller.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(locations[0].latitude, locations[0].longitude),
+            zoom: 15,
+            tilt: 15,
+            bearing: 10,
+          ),
+        ),
+        );
+      },
+      builder: (context, transition) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Material(
+            color: Colors.white,
+            elevation: 4.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: Colors.accents.map((color) {
+                return Container(height: 0, color: Colors.white);
+              }).toList(),
+            ),
+          ),
+        );
+      },
+    );
   }
 
 }
