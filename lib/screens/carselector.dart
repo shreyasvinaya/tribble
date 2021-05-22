@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_signin_button/button_view.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:tribble/blocs/auth_bloc.dart';
 import 'package:tribble/screens/login.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +22,8 @@ class HomeScreen extends StatefulWidget {
 
 class Carselector extends State<HomeScreen> {
   StreamSubscription<User> loginStateSubscription;
+  GoogleMapController _controller;
+  int num = 1;
 
   @override
   void initState() {
@@ -128,6 +129,43 @@ class Carselector extends State<HomeScreen> {
                           bearing: 20,
                         ),
                         markers: _createMarker(),
+                        onMapCreated: mapCreated,
+                      ),
+                      Positioned(
+                        top: 10.0,
+                        left: MediaQuery.of(context).size.width-70.0,
+                        child: InkWell(
+                          onTap: () {
+                            String map_type = "night";
+                            if(num%2 == 0){
+                              map_type = "night";
+                            }
+                            else{
+                              map_type = "retro";
+                            }
+                            setState(() {
+                              num += 1;
+                              getJson('assets/map_styles/$map_type.json').then(setMapStyle);
+                            });
+                          },
+                          child: Container(
+                            height: 60.0,
+                            width: 60.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              color: Colors.grey[400],
+                            ),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text("Switch\nTheme",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15.0,
+                                ),),
+                            ),
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
@@ -260,4 +298,17 @@ class Carselector extends State<HomeScreen> {
       ),
     );
   }
+  void mapCreated(controller){
+    setState(() {
+      _controller = controller;
+      getJson('assets/map_styles/night.json').then(setMapStyle);
+    });
+  }
+  Future<String> getJson(String path) async{
+    return await rootBundle.loadString(path);
+  }
+  void setMapStyle(String mapStyle){
+    _controller.setMapStyle(mapStyle);
+  }
+
 }
