@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:tribble/screens/places_class.dart';
+import 'package:geocoding/geocoding.dart';
 
 class Places extends StatefulWidget {
   Places({Key key}) : super(key: key);
@@ -261,7 +262,6 @@ class _PlacesState extends State<Places> {
   }
 
   Widget buildFloatingSearchBar() {
-    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
       hint: 'Search',
@@ -274,8 +274,18 @@ class _PlacesState extends State<Places> {
       width: 355,
       height: 55,
       debounceDelay: const Duration(milliseconds: 500),
-      onQueryChanged: (query) {
-        // Call your model, bloc, controller here.
+      onQueryChanged: (query) async{
+        List<Location> locations = await locationFromAddress(query);
+        _controller.animateCamera(CameraUpdate.newCameraPosition(
+            CameraPosition(
+              target: LatLng(locations[0].latitude, locations[0].longitude),
+              zoom: 15,
+              tilt: 15,
+              bearing: 10,
+             ),
+          ),
+        );
+
       },
       // Specify a custom transition to be used for
       // animating between opened and closed stated.
