@@ -233,7 +233,7 @@ class _PlacesState extends State<Places> {
             ),
           ),
           Positioned(
-            top: 80.0,
+            top: 120.0,
             left: MediaQuery.of(context).size.width-70.0,
             child: InkWell(
               onTap: () {
