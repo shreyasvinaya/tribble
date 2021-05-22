@@ -229,14 +229,14 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 200.0,
               width: MediaQuery.of(context).size.width,
               child: PageView.builder(
-                  controller : _pageController,
-                  itemCount: pickupLocations.length,
-                  itemBuilder: (BuildContext context, int index){
-                    return _pickupLocationsList(index);
-                  }
+                    controller : _pageController,
+                    itemCount: pickupLocations.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return _pickupLocationsList(index);
+                    }
+                ),
               ),
             ),
-          ),
           Positioned(
             top: 80.0,
             left: MediaQuery.of(context).size.width-70.0,
