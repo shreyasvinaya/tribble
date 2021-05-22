@@ -28,6 +28,7 @@ dependencies:
   material_floating_search_bar: ^0.3.4
   google_maps_webservice: ^0.0.19
   geocoding: ^2.0.0
+  flutter_staggered_animations: ^1.0.0
 
 
 
@@ -59,6 +60,7 @@ flutter:
   assets:
      - assets/
      - assets/cfg/
+     - assets/map_styles/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

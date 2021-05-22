@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:tribble/screens/places_class.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:flutter/services.dart';
 
 class Places extends StatefulWidget {
   Places({Key key}) : super(key: key);
@@ -17,6 +18,7 @@ class _PlacesState extends State<Places> {
   List<Marker> allDestinationMarkers = [];
   PageController _pageController;
   int prevPage;
+  int num = 1;
 
   final List<Locations> destinations = [
     Locations(
@@ -230,6 +232,42 @@ class _PlacesState extends State<Places> {
               ),
             ),
           ),
+          Positioned(
+            top: 80.0,
+            left: MediaQuery.of(context).size.width-70.0,
+            child: InkWell(
+              onTap: () {
+                String map_type = "night";
+                if(num%2 == 0){
+                  map_type = "night";
+                }
+                else{
+                  map_type = "retro";
+                }
+                setState(() {
+                  num += 1;
+                  getJson('assets/map_styles/$map_type.json').then(setMapStyle);
+                });
+              },
+              child: Container(
+                height: 60.0,
+                width: 60.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.grey[400],
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text("Switch\nTheme",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15.0,
+                    ),),
+                ),
+              ),
+            ),
+          ),
           buildFloatingSearchBar(),
         ],
       ),
@@ -238,7 +276,16 @@ class _PlacesState extends State<Places> {
   void mapCreated(controller){
     setState(() {
       _controller = controller;
+      getJson('assets/map_styles/night.json').then(setMapStyle);
     });
+  }
+
+  Future<String> getJson(String path) async{
+    return await rootBundle.loadString(path);
+  }
+
+  void setMapStyle(String mapStyle){
+    _controller.setMapStyle(mapStyle);
   }
 
   moveCamera() {

@@ -8,6 +8,8 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:tribble/blocs/auth_bloc.dart';
 import 'package:tribble/screens/login.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+
 
 class Car {
   String type, price, image;
@@ -121,7 +123,7 @@ class Carselector extends State<HomeScreen> {
                         initialCameraPosition: CameraPosition(
                           target: LatLng(
                               coordinates.latitude, coordinates.longitude),
-                          zoom: 13,
+                          zoom: 14,
                           tilt: 30,
                           bearing: 20,
                         ),
@@ -145,93 +147,104 @@ class Carselector extends State<HomeScreen> {
                             ),
                             Container(
                               height: 250.0,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: cars.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, '/timeselect');
-                                        GlobalConfiguration().updateValue(
-                                            "type", cars[index].type);
-                                        GlobalConfiguration().updateValue(
-                                            "price", cars[index].price);
-                                        GlobalConfiguration().updateValue(
-                                            "image", cars[index].image);
-                                      },
-                                      child: Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            0.0, 10.0, 17.0, 17.0),
-                                        width: 200,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              15.0),
-                                          color: Colors.blue[100],
-                                        ),
-                                        child: Stack(
-                                          alignment: Alignment.topCenter,
-                                          children: [
-                                            Positioned(
-                                              bottom: 10.0,
+                              child: AnimationLimiter(
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: cars.length,
+                                    itemBuilder: (context, index) {
+                                      return AnimationConfiguration.staggeredList(
+                                        position: index,
+                                        duration: Duration(milliseconds: 600),
+                                        child: SlideAnimation(
+                                          horizontalOffset: MediaQuery.of(context).size.width/2,
+                                          child: FadeInAnimation(
+                                            child: InkWell(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                    context, '/timeselect');
+                                                GlobalConfiguration().updateValue(
+                                                    "type", cars[index].type);
+                                                GlobalConfiguration().updateValue(
+                                                    "price", cars[index].price);
+                                                GlobalConfiguration().updateValue(
+                                                    "image", cars[index].image);
+                                              },
                                               child: Container(
-                                                height: 100.0,
-                                                width: 150.0,
+                                                margin: EdgeInsets.fromLTRB(
+                                                    0.0, 10.0, 17.0, 17.0),
+                                                width: 200,
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .circular(20.0),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black12,
-                                                      offset: Offset(7.0, 7.0),
+                                                  borderRadius: BorderRadius.circular(
+                                                      15.0),
+                                                  color: Colors.blue[100],
+                                                ),
+                                                child: Stack(
+                                                  alignment: Alignment.topCenter,
+                                                  children: [
+                                                    Positioned(
+                                                      bottom: 10.0,
+                                                      child: Container(
+                                                        height: 100.0,
+                                                        width: 150.0,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius
+                                                              .circular(20.0),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Colors.black12,
+                                                              offset: Offset(7.0, 7.0),
+                                                            ),
+                                                          ],
+                                                          color: Colors.blue[300],
+                                                        ),
+                                                        child: Padding(
+                                                          padding: EdgeInsets.fromLTRB(
+                                                              30.0, 20.0, 0.0, 0.0),
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment
+                                                                .start,
+                                                            children: [
+                                                              Text("${cars[index]
+                                                                  .type}",
+                                                                style: TextStyle(
+                                                                  fontSize: 20.0,
+                                                                  letterSpacing: 1.5,
+                                                                  fontWeight: FontWeight
+                                                                      .bold,
+                                                                ),
+                                                              ),
+                                                              SizedBox(height: 15.0,),
+                                                              Text("₹${cars[index]
+                                                                  .price}/hr",
+                                                                style: TextStyle(
+                                                                    fontSize: 22.0,
+                                                                    letterSpacing: 1.0,
+                                                                    fontWeight: FontWeight
+                                                                        .w600,
+                                                                    color: Colors.white
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Image(
+                                                      height: 110.0,
+                                                      width: 200.0,
+                                                      image: AssetImage(
+                                                          'assets/${cars[index]
+                                                              .image}'),
                                                     ),
                                                   ],
-                                                  color: Colors.blue[300],
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      30.0, 20.0, 0.0, 0.0),
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Text("${cars[index]
-                                                          .type}",
-                                                        style: TextStyle(
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 1.5,
-                                                          fontWeight: FontWeight
-                                                              .bold,
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: 15.0,),
-                                                      Text("₹${cars[index]
-                                                          .price}/hr",
-                                                        style: TextStyle(
-                                                            fontSize: 22.0,
-                                                            letterSpacing: 1.0,
-                                                            fontWeight: FontWeight
-                                                                .w600,
-                                                            color: Colors.white
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
                                                 ),
                                               ),
                                             ),
-                                            Image(
-                                              height: 110.0,
-                                              width: 200.0,
-                                              image: AssetImage(
-                                                  'assets/${cars[index]
-                                                      .image}'),
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  }
+                                      );
+                                    }
+                                ),
                               ),
                             ),
                           ],
