@@ -315,7 +315,6 @@ class _PlacesState extends State<Places> {
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 600),
       transitionCurve: Curves.easeInOut,
-      physics: const BouncingScrollPhysics(),
       axisAlignment: 0.0,
       openAxisAlignment: 0.0,
       width: 355,
@@ -332,25 +331,7 @@ class _PlacesState extends State<Places> {
              ),
           ),
         );
-
       },
-      // Specify a custom transition to be used for
-      // animating between opened and closed stated.
-      transition: CircularFloatingSearchBarTransition(),
-      actions: [
-        FloatingSearchBarAction(
-          showIfOpened: false,
-          child: CircularButton(
-            icon: const Icon(Icons.place),
-            onPressed: () {
-              moveCameraToBITS();
-            },
-          ),
-        ),
-        FloatingSearchBarAction.searchToClear(
-          showIfClosed: false,
-        ),
-      ],
       builder: (context, transition) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(8),
@@ -358,9 +339,9 @@ class _PlacesState extends State<Places> {
             color: Colors.white,
             elevation: 4.0,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
               children: Colors.accents.map((color) {
-                return Container(height: 95, color: Colors.white);
+                return Container(height: 0, color: Colors.white);
               }).toList(),
             ),
           ),
