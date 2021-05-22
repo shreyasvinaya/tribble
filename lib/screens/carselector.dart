@@ -47,9 +47,10 @@ class Carselector extends State<HomeScreen> {
 
   @override
   List<Car> cars = [
+    Car(type: "Bike", price: "69", image: "bike.png"),
     Car(type: "Standard", price: "200", image: "standard.png"),
     Car(type: "MiniVan", price: "300", image: "minivan.png"),
-    Car(type: "SUV", price: "400", image: "suv.png"),
+    Car(type: "SUV", price: "420", image: "suv.png"),
     Car(type: "Luxury", price: "700", image: "luxury.png"),
     Car(type: "Sports", price: "1000", image: "sports.png"),
   ];
