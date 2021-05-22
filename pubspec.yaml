@@ -25,6 +25,9 @@ dependencies:
     sdk: flutter
   google_maps_flutter: ^2.0.4
   global_configuration: ^2.0.0-nullsafety.1
+  material_floating_search_bar: ^0.3.4
+  google_maps_webservice: ^0.0.19
+  geocoding: ^2.0.0
   flutter_staggered_animations: ^1.0.0
 
 
@@ -36,6 +39,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   provider: ^5.0.0
   firebase_auth: ^1.1.4
+  carousel_slider: ^3.0.0
 
 dev_dependencies:
   flutter_test:
