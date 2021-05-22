@@ -37,6 +37,7 @@ class _TimeselectorState extends State<Timeselector> {
           ),
           child: AnimationLimiter(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: AnimationConfiguration.toStaggeredList(
                     duration: Duration(milliseconds: 375),
                     childAnimationBuilder: (widget) => SlideAnimation(
