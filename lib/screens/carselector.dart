@@ -154,6 +154,10 @@ class Carselector extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20.0),
                               color: Colors.grey[400],
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2,
+                                )
                             ),
                             child: Align(
                               alignment: Alignment.center,
@@ -161,7 +165,8 @@ class Carselector extends State<HomeScreen> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 15.0,
+                                  fontSize: 12.0,
+                                  letterSpacing: 0.5
                                 ),),
                             ),
                           ),
