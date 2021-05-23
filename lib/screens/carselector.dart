@@ -87,6 +87,7 @@ class Carselector extends State<HomeScreen> {
                   child: FlatButton.icon(onPressed: () {
                     Navigator.pop(context);
                   },
+                      height: 50.0,
                       minWidth: MediaQuery.of(context).size.width,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)
@@ -109,7 +110,8 @@ class Carselector extends State<HomeScreen> {
                           ),
                           Text("\tChange Location!",
                             style: TextStyle(
-                                color: Colors.white
+                                color: Colors.white,
+                              letterSpacing: 0.5,
                             ),),
                           SizedBox(height: 5.0,),
                         ],

@@ -200,8 +200,8 @@ class Checkout extends StatelessWidget {
                               ),
                               Text("Tap to know more",
                                 style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w200,
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
                                   color: Colors.white,
                                 ),
                               ),
