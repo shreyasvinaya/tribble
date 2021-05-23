@@ -31,7 +31,7 @@ class Material1App extends StatelessWidget {
         theme: ThemeData(),
         darkTheme: ThemeData.dark(),
         routes: {
-          "/": (context) => LoginScreen(),
+          "/": (context) => Timeselector(),
           "/pickup": (context) => MyHomePage(),
           "/carselect": (context) => HomeScreen(),
           "/checkout": (context) => Checkout(),

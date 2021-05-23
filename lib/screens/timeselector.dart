@@ -17,19 +17,6 @@ class _TimeselectorState extends State<Timeselector> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
-        // appBar: AppBar(
-        //   centerTitle: true,
-        //   automaticallyImplyLeading: false,
-        //   backgroundColor: Colors.grey[600],
-        //   title: Text("Time Duration",
-        //     style: TextStyle(
-        //       fontSize: 25.0,
-        //       fontWeight: FontWeight.bold,
-        //       letterSpacing: 2.0,
-        //       color: Colors.black,
-        //     ),
-        //   ),
-        // ),
         body: Column(
           children: [
             Container(
@@ -42,20 +29,20 @@ class _TimeselectorState extends State<Timeselector> {
               child: Align(
                 alignment: Alignment.center,
                 child: Text("Time Duration",
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2.0,
-                        color: Colors.black,
-                      ),
-                    ),
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2.0,
+                    color: Colors.black,
+                  ),
+                ),
               ),
             ),
             SizedBox(height: 7.0),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(20.0),
                     image: DecorationImage(
                         image: AssetImage('assets/newmap.png'),
                         fit: BoxFit.cover
@@ -170,7 +157,7 @@ class _TimeselectorState extends State<Timeselector> {
                                             num1 -= 1;
                                             num2 = 23;
                                           }
-                                      }
+                                        }
                                       });
                                     },
                                       backgroundColor: Colors.greenAccent,
