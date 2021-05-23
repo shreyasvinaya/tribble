@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class Timeselector extends StatefulWidget {
@@ -63,6 +64,14 @@ class _TimeselectorState extends State<Timeselector> {
                                   }
                                   else {
                                     num1 = num1;
+                                    Fluttertoast.showToast(
+                                      msg: "You can't rent for less than 0 days",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      backgroundColor: Colors.white.withOpacity(0.8),
+                                      textColor: Colors.black,
+                                      gravity: ToastGravity.BOTTOM,
+                                      fontSize: 16.0,
+                                    );
                                   }
                                 });
                               },
@@ -116,12 +125,28 @@ class _TimeselectorState extends State<Timeselector> {
                             children: [
                               FloatingActionButton(onPressed: () {
                                 setState(() {
-                                  if(num2 > 1){
-                                    num2 -= 1;
+                                  if(num2 > 0){
+                                    if(num1 == 0 && num2 == 1){
+                                      Fluttertoast.showToast(
+                                        msg:"You can't rent for less than 1 hour",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        backgroundColor:
+                                        Colors.white.withOpacity(0.8),
+                                        textColor: Colors.black,
+                                        gravity: ToastGravity.BOTTOM,
+                                        fontSize: 16.0,
+                                      );
+                                    }
+                                    else{
+                                      num2 -= 1;
+                                    }
                                   }
                                   else {
-                                    num2 = num2;
-                                  }
+                                    if(num1 > 0 && num2 == 0){
+                                      num1 -= 1;
+                                      num2 = 23;
+                                    }
+                                }
                                 });
                               },
                                 backgroundColor: Colors.greenAccent,
@@ -154,7 +179,13 @@ class _TimeselectorState extends State<Timeselector> {
                               SizedBox(width: 15.0,),
                               FloatingActionButton(onPressed: () {
                                 setState(() {
-                                  num2 += 1;
+                                  if(num2 < 23){
+                                    num2 += 1;
+                                  }
+                                  else {
+                                    num2 = 0;
+                                    num1 += 1;
+                                  }
                                 });
                               },
                                 backgroundColor: Colors.greenAccent,

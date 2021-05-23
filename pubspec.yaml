@@ -28,6 +28,7 @@ dependencies:
   material_floating_search_bar: ^0.3.4
   geocoding: ^2.0.0
   flutter_staggered_animations: ^1.0.0
+  fluttertoast: ^8.0.7
 
 
 
