@@ -36,7 +36,7 @@ class Material1App extends StatelessWidget {
           "/carselect": (context) => HomeScreen(),
           "/checkout": (context) => Checkout(),
           "/timeselect": (context) => Timeselector(),
-          "/timetype": (context) => Timetype(),
+          // "/timetype": (context) => Timetype(),
           // "/hours": (context) => Hours(),
           // "/days": (context) => Days(),
           "/goaDest": (context) => Places(),

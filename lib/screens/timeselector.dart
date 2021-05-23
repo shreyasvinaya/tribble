@@ -9,7 +9,8 @@ class Timeselector extends StatefulWidget {
 
 class _TimeselectorState extends State<Timeselector> {
   String type = "Hours";
-  int num = 7;
+  int num1 = 2;
+  int num2 = 7;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,11 +40,11 @@ class _TimeselectorState extends State<Timeselector> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: AnimationConfiguration.toStaggeredList(
-                    duration: Duration(milliseconds: 375),
-                    childAnimationBuilder: (widget) => SlideAnimation(
-                        horizontalOffset: MediaQuery.of(context).size.width/2,
-                        child: FadeInAnimation(child: widget),
-                    ) ,
+                  duration: Duration(milliseconds: 375),
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: MediaQuery.of(context).size.width/2,
+                    child: FadeInAnimation(child: widget),
+                  ) ,
                   children: [
                     Container(
                       height: MediaQuery.of(context).size.height*0.7,
@@ -51,52 +52,17 @@ class _TimeselectorState extends State<Timeselector> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
-                            onTap: () async{
-                              dynamic result = await Navigator.pushNamed(context, '/timetype');
-                              setState(() {
-                                type = result['type'];
-                              });
-                            },
-                            child: Container(
-                              height: 100.0,
-                              width: MediaQuery.of(context).size.width-210,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.cyan[700].withOpacity(0.8),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(width: 10.0,),
-                                  Text("$type",
-                                    style: TextStyle(
-                                        fontSize: 35.0,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_drop_down_outlined,
-                                    color: Colors.white,
-                                    size: 51.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 40.0,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               FloatingActionButton(onPressed: () {
                                 setState(() {
-                                  if(num > 1){
-                                    num -= 1;
+                                  if(num1 > 0){
+                                    num1 -= 1;
                                   }
                                   else {
-                                    num = num;
+                                    num1 = num1;
                                   }
                                 });
                               },
@@ -110,15 +76,15 @@ class _TimeselectorState extends State<Timeselector> {
                               ),
                               SizedBox(width: 15.0,),
                               Container(
-                                height: 80.0,
-                                width: 80,
+                                height: 100.0,
+                                width: 200.0,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
                                   color: Colors.cyan[700].withOpacity(0.8),
                                 ),
                                 child: Align(
                                   alignment: Alignment.center,
-                                  child: Text("$num",
+                                  child: Text("$num1 Days",
                                     style: TextStyle(
                                         fontSize: 40.0,
                                         color: Colors.white,
@@ -130,7 +96,65 @@ class _TimeselectorState extends State<Timeselector> {
                               SizedBox(width: 15.0,),
                               FloatingActionButton(onPressed: () {
                                 setState(() {
-                                  num += 1;
+                                  num1 += 1;
+                                });
+                              },
+                                backgroundColor: Colors.greenAccent,
+                                elevation: 0.0,
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 40.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 40.0,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FloatingActionButton(onPressed: () {
+                                setState(() {
+                                  if(num2 > 1){
+                                    num2 -= 1;
+                                  }
+                                  else {
+                                    num2 = num2;
+                                  }
+                                });
+                              },
+                                backgroundColor: Colors.greenAccent,
+                                elevation: 0.0,
+                                child: Icon(
+                                  Icons.remove,
+                                  color: Colors.white,
+                                  size: 40.0,
+                                ),
+                              ),
+                              SizedBox(width: 15.0,),
+                              Container(
+                                height: 100.0,
+                                width: 200.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  color: Colors.cyan[700].withOpacity(0.8),
+                                ),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text("$num2 Hours",
+                                    style: TextStyle(
+                                        fontSize: 40.0,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 15.0,),
+                              FloatingActionButton(onPressed: () {
+                                setState(() {
+                                  num2 += 1;
                                 });
                               },
                                 backgroundColor: Colors.greenAccent,
@@ -171,7 +195,8 @@ class _TimeselectorState extends State<Timeselector> {
                           onTap: () {
                             Navigator.pushNamed(context, '/checkout', arguments: {
                               "timeType": type,
-                              "number": num,
+                              "num1": num1,
+                              "num2": num2,
                             });
                           },
                           child: Container(

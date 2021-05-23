@@ -9,14 +9,16 @@ class Checkout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dataReceived = ModalRoute.of(context).settings.arguments;
-    int num = dataReceived["number"];
+    int num1 = dataReceived["num1"];
+    int num2 = dataReceived["num2"];
     int perhr = int.parse(GlobalConfiguration().get("price"));
-    int cost;
-    if(dataReceived["timeType"] == "Hours"){
-      cost = perhr*num;
+    int cost = num1*24*perhr + num2*perhr;
+    String showtime;
+    if(dataReceived["num1"] != 0){
+      showtime = "${dataReceived["num1"]} Days ${dataReceived["num2"]} Hours";
     }
     else{
-      cost = perhr*num*24;
+      showtime = "${dataReceived["num2"]} Hours";
     }
     var date = DateTime.now().toString();
     var dateParse = DateTime.parse(date);
@@ -86,12 +88,12 @@ class Checkout extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.watch_later_outlined,
-                                size: 35.0,
+                                size: 25.0,
                               ),
                               SizedBox(width: 5.0,),
-                              Text("${dataReceived["number"]} ${dataReceived["timeType"]}",
+                              Text("$showtime",
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 15.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
