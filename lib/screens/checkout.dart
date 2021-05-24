@@ -274,13 +274,7 @@ class Checkout extends StatelessWidget {
                         SizedBox(width: 15.0,),
                         InkWell(
                           onTap: () {
-                            Navigator.pushReplacementNamed(context, '/confirm', arguments: {
-                              "carType": GlobalConfiguration().get("type"),
-                              "price": GlobalConfiguration().get("price"),
-                              "pickup": GlobalConfiguration().get("location"),
-                              "timeDuration": "${dataReceived["number"]} ${dataReceived["timeType"]}",
-                              "date": formattedDate.toString(),
-                            });
+                            Navigator.pushReplacementNamed(context, '/confirm');
                           },
                           child: Container(
                             height: 90.0,

@@ -29,6 +29,7 @@ dependencies:
   geocoding: ^2.0.0
   flutter_staggered_animations: ^1.0.0
   fluttertoast: ^8.0.7
+  video_player: ^1.0.1
 
 
 
