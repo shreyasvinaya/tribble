@@ -78,11 +78,11 @@ class _PlacesState extends State<Places> {
     {
       allDestinationMarkers.add(
           Marker(
-            markerId: MarkerId(element.Name),
-            draggable: false,
-            infoWindow: InfoWindow( title: element.Name, snippet: element.address),
-            position: element.locationCoordinates
-      ));
+              markerId: MarkerId(element.Name),
+              draggable: false,
+              infoWindow: InfoWindow( title: element.Name, snippet: element.address),
+              position: element.locationCoordinates
+          ));
     }
     );
     _pageController = PageController(initialPage:1, viewportFraction: 0.8)..addListener(scrollListener);
@@ -208,6 +208,7 @@ class _PlacesState extends State<Places> {
 
             child: GoogleMap(
               compassEnabled: false,
+              zoomControlsEnabled: false,
               initialCameraPosition: CameraPosition(
                 target: LatLng(15.3911, 73.8782),
                 zoom: 16,
@@ -328,13 +329,13 @@ class _PlacesState extends State<Places> {
       onQueryChanged: (query) async{
         List<Location> locations = await locationFromAddress(query);
         _controller.animateCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(
-              target: LatLng(locations[0].latitude, locations[0].longitude),
-              zoom: 15,
-              tilt: 15,
-              bearing: 10,
-             ),
+          CameraPosition(
+            target: LatLng(locations[0].latitude, locations[0].longitude),
+            zoom: 15,
+            tilt: 15,
+            bearing: 10,
           ),
+        ),
         );
       },
       builder: (context, transition) {

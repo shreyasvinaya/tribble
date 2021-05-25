@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -9,14 +10,16 @@ class Checkout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dataReceived = ModalRoute.of(context).settings.arguments;
-    int num = dataReceived["number"];
+    int num1 = dataReceived["num1"];
+    int num2 = dataReceived["num2"];
     int perhr = int.parse(GlobalConfiguration().get("price"));
-    int cost;
-    if(dataReceived["timeType"] == "Hours"){
-      cost = perhr*num;
+    int cost = num1*24*perhr + num2*perhr;
+    String showtime;
+    if(dataReceived["num1"] != 0){
+      showtime = "${dataReceived["num1"]} Days ${dataReceived["num2"]} Hours";
     }
     else{
-      cost = perhr*num*24;
+      showtime = "${dataReceived["num2"]} Hours";
     }
     var date = DateTime.now().toString();
     var dateParse = DateTime.parse(date);
@@ -86,12 +89,12 @@ class Checkout extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.watch_later_outlined,
-                                size: 35.0,
+                                size: 25.0,
                               ),
                               SizedBox(width: 5.0,),
-                              Text("${dataReceived["number"]} ${dataReceived["timeType"]}",
+                              Text("$showtime",
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 15.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -198,8 +201,8 @@ class Checkout extends StatelessWidget {
                               ),
                               Text("Tap to know more",
                                 style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w200,
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
                                   color: Colors.white,
                                 ),
                               ),
@@ -272,13 +275,14 @@ class Checkout extends StatelessWidget {
                         SizedBox(width: 15.0,),
                         InkWell(
                           onTap: () {
-                            Navigator.pushReplacementNamed(context, '/confirm', arguments: {
-                              "carType": GlobalConfiguration().get("type"),
-                              "price": GlobalConfiguration().get("price"),
-                              "pickup": GlobalConfiguration().get("location"),
-                              "timeDuration": "${dataReceived["number"]} ${dataReceived["timeType"]}",
-                              "date": formattedDate.toString(),
-                            });
+                            Map <String, dynamic> data = {
+                              "pickupLocation" : GlobalConfiguration().get("location").toString(),
+                              "price" : GlobalConfiguration().get("price").toString(),
+                              "carType" : GlobalConfiguration().get("type").toString(),
+                              "time" : '$num1 day(s), $num2 hour(s)'
+                            };
+                            FirebaseFirestore.instance.collection("userData").add(data);
+                            Navigator.pushReplacementNamed(context, '/rentData');
                           },
                           child: Container(
                             height: 90.0,

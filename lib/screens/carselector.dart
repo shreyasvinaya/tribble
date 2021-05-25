@@ -8,6 +8,7 @@ import 'package:tribble/blocs/auth_bloc.dart';
 import 'package:tribble/screens/login.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:tribble/services/auth_service.dart';
 
 
 class Car {
@@ -24,6 +25,7 @@ class Carselector extends State<HomeScreen> {
   StreamSubscription<User> loginStateSubscription;
   GoogleMapController _controller;
   int num = 1;
+  final authService = AuthService();
 
   @override
   void initState() {
@@ -48,9 +50,10 @@ class Carselector extends State<HomeScreen> {
 
   @override
   List<Car> cars = [
+    Car(type: "Bike", price: "69", image: "bike.png"),
     Car(type: "Standard", price: "200", image: "standard.png"),
     Car(type: "MiniVan", price: "300", image: "minivan.png"),
-    Car(type: "SUV", price: "400", image: "suv.png"),
+    Car(type: "SUV", price: "420", image: "suv.png"),
     Car(type: "Luxury", price: "700", image: "luxury.png"),
     Car(type: "Sports", price: "1000", image: "sports.png"),
   ];
@@ -82,14 +85,12 @@ class Carselector extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
+                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
                   child: FlatButton.icon(onPressed: () {
                     Navigator.pop(context);
                   },
-                      minWidth: MediaQuery
-                          .of(context)
-                          .size
-                          .width - 30,
+                      height: 50.0,
+                      minWidth: MediaQuery.of(context).size.width,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)
                       ),
@@ -111,7 +112,8 @@ class Carselector extends State<HomeScreen> {
                           ),
                           Text("\tChange Location!",
                             style: TextStyle(
-                                color: Colors.white
+                                color: Colors.white,
+                              letterSpacing: 0.5,
                             ),),
                           SizedBox(height: 5.0,),
                         ],
@@ -180,11 +182,17 @@ class Carselector extends State<HomeScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                CircleAvatar(
-                                  backgroundImage: NetworkImage(snapshot
-                                      .data.photoURL
-                                      .replaceFirst('s96', 's400')),
-                                  radius: 25.0,
+                                GestureDetector(
+                                  onTap: (){
+                                    authService.logout();
+                                    Navigator.pushNamed(context, '/login');
+                                  },
+                                    child: CircleAvatar(
+                                    backgroundImage: NetworkImage(snapshot
+                                        .data.photoURL
+                                        .replaceFirst('s96', 's400')),
+                                    radius: 25.0,
+                                  ),
                                 ),
                               ],
                             ),
