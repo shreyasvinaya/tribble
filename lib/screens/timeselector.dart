@@ -33,7 +33,7 @@ class _TimeselectorState extends State<Timeselector> {
                     fontSize: 25.0,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2.0,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                 ),
               ),
