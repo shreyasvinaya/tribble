@@ -34,8 +34,17 @@ class _rentDataState extends State<rentData>  {
             return ListView.builder(
               itemCount: locations.length,
               itemBuilder: (context,index){
-                return Card(
-                  child: Text("${locations[index]}\n${carType[index]}"),
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                  child: Container(
+                    height: 100.0,
+                    width: MediaQuery.of(context).size.width-20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.grey,
+                    ),
+                    child: Text(locations[index]),
+                  ),
                 );
               },
             );
