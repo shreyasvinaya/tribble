@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tribble/screens/carselector.dart';
-import 'package:tribble/screens/confirmation.dart';
 
 class rentData extends StatefulWidget {
   const rentData({Key key}) : super(key: key);

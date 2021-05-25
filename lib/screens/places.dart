@@ -4,6 +4,7 @@ import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:tribble/screens/places_class.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter/services.dart';
+import 'package:tribble/services/auth_service.dart';
 
 class Places extends StatefulWidget {
   Places({Key key}) : super(key: key);
@@ -19,6 +20,8 @@ class _PlacesState extends State<Places> {
   PageController _pageController;
   int prevPage;
   int num = 1;
+  final authService = AuthService();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final List<Locations> destinations = [
     Locations(
@@ -198,7 +201,67 @@ class _PlacesState extends State<Places> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
+      key: _scaffoldKey,
+      drawer: Drawer(child: ListView(
+        children: [
+          DrawerHeader(
+            child: Text('Tribble'),
+            decoration: BoxDecoration(
+                color: Colors.grey[400]
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.directions_car_rounded),
+            title: Text('My Bookings'),
+            onTap: () {
+              Navigator.pushNamed(context, '/rentData');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.place_outlined),
+            title: Text('Top Destinations'),
+            onTap: () {
+              Navigator.pushNamed(context, '/goaDest');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+              title: Text('Toggle Map Theme'),
+              leading: Icon(Icons.map),
+              onTap: () {
+                String map_type = "night";
+                if(num%2 == 0){
+                  map_type = "night";
+                }
+                else{
+                  map_type = "retro";
+                }
+                setState(() {
+                  num += 1;
+                  getJson('assets/map_styles/$map_type.json').then(setMapStyle);
+                });
+              }
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.airplanemode_active),
+            title: Text('Book a Flight'),
+            onTap: () {
+              Navigator.pushNamed(context, '/confirm');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Sign Out'),
+            onTap: () {
+              authService.logout();
+              Navigator.pushNamed(context, '/login');
+            },
+          ),
+        ],
+      )),
       body:
       Stack(
         children: [
@@ -233,6 +296,7 @@ class _PlacesState extends State<Places> {
               ),
             ),
           ),
+
           Positioned(
             top: 120.0,
             left: MediaQuery.of(context).size.width-70.0,

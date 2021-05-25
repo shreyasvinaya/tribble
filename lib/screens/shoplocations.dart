@@ -4,12 +4,10 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tribble/screens/pickup_locations.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:tribble/services/auth_service.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
-
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -28,8 +26,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Locations(
         shopName: 'GoiCar - Car Rentals',
-        address: 'South Goa',
-        description: 'Office F1, First Floor, El-Capitan Centre, Near Mapusa Court, North Goa, Mapusa, Bardez, Goa, Mapuca, Goa, India 403507\nPhone: 9860122226',
+        address: 'North Goa',
+        description: 'F1, First Floor, El-Capitan Centre, Mapusa,  Goa 403507\nPhone: 9860122226',
         locationCoordinates: LatLng(15.5935975612, 73.8138878345),
         thumbnail: 'GoiCar.png'
     ),
@@ -61,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Locations(
         shopName: 'Comfort Car Rental',
         address: 'South Goa',
-        description: 'Umiya Quatro - D, Office No. 25, Upper, goa international airport Green Valley, Dabolim, Goa 403801. Phone- 9823086404',
+        description: 'Umiya Quatro - D, Office No. 25, Upper, Green Valley, Dabolim, Goa 403801. Phone- 9823086404',
         locationCoordinates: LatLng(15.387357158054131, 73.84500889791742),
         thumbnail: 'ComfortRental.png'
     ),
@@ -69,12 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
     Locations(
         shopName: 'Vailankanni Auto Hires',
         address: 'North Goa',
-        description: 'Saint Joseph Apartments, A-5, Camotim Vaddo, Candolim, Goa 403515. Phone- 9822101598',
+        description: 'St Joseph Apts, A-5, Camotim Vaddo, Candolim, Goa 403515. Phone- 9822101598',
         locationCoordinates: LatLng(15.521544407569099, 73.76700327815014),
         thumbnail: 'Vailankanni.png'
     ),
 
   ];
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -206,14 +205,73 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      key: _scaffoldKey,
+      drawer: Drawer(child: ListView(
+        children: [
+          DrawerHeader(
+              child: Text('Tribble'),
+            decoration: BoxDecoration(
+              color: Colors.grey[400]
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.directions_car_rounded),
+            title: Text('My Bookings'),
+            onTap: () {
+              Navigator.pushNamed(context, '/rentData');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.place_outlined),
+            title: Text('Top Destinations'),
+            onTap: () {
+              Navigator.pushNamed(context, '/goaDest');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            title: Text('Toggle Map Theme'),
+            leading: Icon(Icons.map),
+            onTap: () {
+              String map_type = "night";
+              if(num%2 == 0){
+                map_type = "night";
+              }
+              else{
+                map_type = "retro";
+              }
+              setState(() {
+                num += 1;
+                getJson('assets/map_styles/$map_type.json').then(setMapStyle);
+              });
+            }
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.airplanemode_active),
+            title: Text('Book a Flight'),
+            onTap: () {
+              Navigator.pushNamed(context, '/confirm');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Sign Out'),
+            onTap: () {
+              authService.logout();
+              Navigator.pushNamed(context, '/login');
+            },
+          ),
+        ],
+      )),
       body:
       Stack(
         children: [
           Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-
             child: GoogleMap(
               compassEnabled: false,
               zoomControlsEnabled: false,
@@ -226,9 +284,10 @@ class _MyHomePageState extends State<MyHomePage> {
               onMapCreated: mapCreated,
             ),
           ),
+
           Positioned(
-            top: 80.0,
-            right: MediaQuery.of(context).size.width-70.0,
+            top: 50.0,
+            left: MediaQuery.of(context).size.width-70.0,
             child: InkWell(
               onTap: () {
                 showDialog(
@@ -269,72 +328,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+
           Positioned(
-            top: 80.0,
-            left: MediaQuery.of(context).size.width-70.0,
-            child: InkWell(
-              onTap: () {
-                String map_type = "night";
-                if(num%2 == 0){
-                  map_type = "night";
-                }
-                else{
-                  map_type = "retro";
-                }
-                setState(() {
-                  num += 1;
-                  getJson('assets/map_styles/$map_type.json').then(setMapStyle);
-                });
-              },
-              child: Container(
-                height: 60.0,
-                width: 60.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.grey[400],
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    )
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text("Switch\nTheme",
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12.0,
-                    letterSpacing: 0.5
-                  ),),
-                ),
+            top: 45,
+            left: 10,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.black, width: 2),
+                color: Colors.grey[400]
               ),
-            ),
-          ),
-          Positioned(
-            top: 150.0,
-            left: MediaQuery.of(context).size.width-70.0,
-            child: InkWell(
-              onTap: () {
-                authService.logout();
-                Navigator.pushNamed(context, '/login');
-              },
-              child: Container(
-                height: 60.0,
-                width: 60.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.grey[400],
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text("Logout",
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15.0,
-                    ),),
-                ),
-              ),
+                child: IconButton(icon: Icon(Icons.menu), iconSize: 45, onPressed: () => _scaffoldKey.currentState.openDrawer())
             ),
           ),
         ],

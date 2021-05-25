@@ -51,12 +51,14 @@ class Carselector extends State<HomeScreen> {
   @override
   List<Car> cars = [
     Car(type: "Bike", price: "69", image: "bike.png"),
-    Car(type: "Standard", price: "200", image: "standard.png"),
-    Car(type: "MiniVan", price: "300", image: "minivan.png"),
-    Car(type: "SUV", price: "420", image: "suv.png"),
+    Car(type: "Sedan", price: "150", image: "standard.png"),
+    Car(type: "MiniVan", price: "420", image: "minivan.png"),
+    Car(type: "SUV", price: "300", image: "suv.png"),
     Car(type: "Luxury", price: "700", image: "luxury.png"),
-    Car(type: "Sports", price: "1000", image: "sports.png"),
+    Car(type: "Sports", price: "600", image: "sports.png"),
   ];
+
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
@@ -75,6 +77,67 @@ class Carselector extends State<HomeScreen> {
     }
     return Scaffold(
       backgroundColor: Colors.black,
+      key: _scaffoldKey,
+      drawer: Drawer(child: ListView(
+        children: [
+          DrawerHeader(
+            child: Text('Tribble'),
+            decoration: BoxDecoration(
+                color: Colors.grey[400]
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.directions_car_rounded),
+            title: Text('My Bookings'),
+            onTap: () {
+              Navigator.pushNamed(context, '/rentData');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.place_outlined),
+            title: Text('Top Destinations'),
+            onTap: () {
+              Navigator.pushNamed(context, '/goaDest');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+              title: Text('Toggle Map Theme'),
+              leading: Icon(Icons.map),
+              onTap: () {
+                String map_type = "night";
+                if(num%2 == 0){
+                  map_type = "night";
+                }
+                else{
+                  map_type = "retro";
+                }
+                setState(() {
+                  num += 1;
+                  getJson('assets/map_styles/$map_type.json').then(setMapStyle);
+                });
+              }
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.airplanemode_active),
+            title: Text('Book a Flight'),
+            onTap: () {
+              Navigator.pushNamed(context, '/confirm');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Sign Out'),
+            onTap: () {
+              authService.logout();
+              Navigator.pushNamed(context, '/login');
+            },
+          ),
+        ],
+      )),
       body: SafeArea(
         child: StreamBuilder<User>(
           stream: authBloc.currentUser,
@@ -89,17 +152,13 @@ class Carselector extends State<HomeScreen> {
                   child: FlatButton.icon(onPressed: () {
                     Navigator.pop(context);
                   },
-                      height: 50.0,
+                      height: 60.0,
                       minWidth: MediaQuery.of(context).size.width,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)
+                          borderRadius: BorderRadius.circular(10.0),
                       ),
                       color: Colors.grey[800],
-                      icon: Icon(
-                        Icons.add_location_sharp,
-                        size: 27.0,
-                        color: Colors.orange,
-                      ),
+                      icon: IconButton(icon: Icon(Icons.menu), iconSize: 45, color: Colors.white, onPressed: () => _scaffoldKey.currentState.openDrawer()),
                       label: Column(
                         children: [
                           Text("${GlobalConfiguration().get("location")}",
@@ -110,7 +169,8 @@ class Carselector extends State<HomeScreen> {
                               color: Colors.white70,
                             ),
                           ),
-                          Text("\tChange Location!",
+                          SizedBox(height: 5,),
+                          Text("\tChange Location?",
                             style: TextStyle(
                                 color: Colors.white,
                               letterSpacing: 0.5,
@@ -132,47 +192,6 @@ class Carselector extends State<HomeScreen> {
                         ),
                         markers: _createMarker(),
                         onMapCreated: mapCreated,
-                      ),
-                      Positioned(
-                        top: 10.0,
-                        left: MediaQuery.of(context).size.width-70.0,
-                        child: InkWell(
-                          onTap: () {
-                            String map_type = "night";
-                            if(num%2 == 0){
-                              map_type = "night";
-                            }
-                            else{
-                              map_type = "retro";
-                            }
-                            setState(() {
-                              num += 1;
-                              getJson('assets/map_styles/$map_type.json').then(setMapStyle);
-                            });
-                          },
-                          child: Container(
-                            height: 60.0,
-                            width: 60.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              color: Colors.grey[400],
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
-                                )
-                            ),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text("Switch\nTheme",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12.0,
-                                  letterSpacing: 0.5
-                                ),),
-                            ),
-                          ),
-                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
