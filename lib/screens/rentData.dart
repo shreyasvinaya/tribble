@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tribble/screens/carselector.dart';
+import 'package:tribble/screens/confirmation.dart';
 
 class rentData extends StatefulWidget {
   const rentData({Key key}) : super(key: key);
@@ -10,17 +12,7 @@ class rentData extends StatefulWidget {
 
 class _rentDataState extends State<rentData>  {
 
-  List locations  = [FirebaseFirestore.instance.collection("userData").get().then((querySnapshot) {
-  querySnapshot.docs.forEach((result) async { return await result["pickupLocation"]; });
-  }) as String];
-
-  List<String>prices = [FirebaseFirestore.instance.collection("userData").get().then((querySnapshot) {
-    querySnapshot.docs.forEach((result) { return result["price"]; });
-  }) as String];
-
-  List<String>carTypes = [FirebaseFirestore.instance.collection("userData").get().then((querySnapshot) {
-    querySnapshot.docs.forEach((result) { return result["carType"]; });
-  }) as String];
+  final userDataFuture = FirebaseFirestore.instance.collection("userData").get();
 
 
   @override
@@ -31,35 +23,27 @@ class _rentDataState extends State<rentData>  {
         centerTitle: true,
         backgroundColor: Colors.teal[800],
       ),
-      body: ListView.builder(
-        itemCount: locations.length,
-        itemBuilder: (context, index){
-          return Card(
-            margin: EdgeInsets.fromLTRB(20, 40, 20, 0),
-            child: Text(locations[index]),
-          );
+      body: FutureBuilder(
+        future: userDataFuture,
+        builder: (context,snapshot){
+          if(snapshot.hasData){
+            final locations = snapshot.data.docs.map((result) => result["pickupLocation"]).toList();
+            final carType = snapshot.data.docs.map((result) => result["carType"]).toList();
+            final time = snapshot.data.docs.map((result) => result["time"]).toList();
+            final price = snapshot.data.docs.map((result) => result["price"]).toList();
+            return ListView.builder(
+              itemCount: locations.length,
+              itemBuilder: (context,index){
+                return Card(
+                  child: Text("${locations[index]}\n${carType[index]}"),
+                );
+              },
+            );
+          }
+          return Container();
         },
-        )
+      )
       );
 
   }
-}
-
-
-printCards() {
-
-  FirebaseFirestore.instance.collection("userData").get().then((querySnapshot) {
-    querySnapshot.docs.forEach((result) {
-      return Card(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(result["carType"]),
-            Text(result["price"]),
-          ],
-        ),
-      );
-    });
-  });
-
 }
