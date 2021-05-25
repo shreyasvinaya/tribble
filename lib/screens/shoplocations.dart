@@ -226,6 +226,34 @@ class _MyHomePageState extends State<MyHomePage> {
               onMapCreated: mapCreated,
             ),
           ),
+          Positioned(
+            top: 80.0,
+            right: MediaQuery.of(context).size.width-70.0,
+            child: InkWell(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext) => _buildPopupDialogue(context)
+                );
+              },
+              child: Container(
+                height: 60.0,
+                width: 60.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.grey[400],
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2,
+                  )
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Icon(Icons.read_more_outlined)
+                ),
+              ),
+            ),
+          ),
 
           Positioned(
             bottom : 0.0,
@@ -264,6 +292,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   color: Colors.grey[400],
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 2,
+                    )
                 ),
                 child: Align(
                   alignment: Alignment.center,
@@ -271,7 +303,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.w600,
-                    fontSize: 15.0,
+                    fontSize: 12.0,
+                    letterSpacing: 0.5
                   ),),
                 ),
               ),
@@ -332,6 +365,37 @@ class _MyHomePageState extends State<MyHomePage> {
           tilt: 45,
           bearing: 30,)
     ));
+  }
+
+  Widget _buildPopupDialogue(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Colors.amber[800],
+      title: Center(
+          child: Text(
+            'Welcome to Tribble!',
+            style: TextStyle(
+              color: Colors.white,
+              letterSpacing: 1.0,
+              fontWeight: FontWeight.w900
+            ),
+          )
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("\nWe are a Car Rental app focused around BITS Goa. \n\n"
+              "This page enables you to choose the pickup location of your car from the options provided at the bottom of your screen \n\n"
+              "We will be adding more locations soon!",
+            style: TextStyle(
+              color: Colors.white,
+              letterSpacing: 0.5,
+              fontWeight: FontWeight.w400
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
 }
