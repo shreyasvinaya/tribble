@@ -8,6 +8,7 @@ import 'package:tribble/blocs/auth_bloc.dart';
 import 'package:tribble/screens/login.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:tribble/services/auth_service.dart';
 
 
 class Car {
@@ -24,6 +25,7 @@ class Carselector extends State<HomeScreen> {
   StreamSubscription<User> loginStateSubscription;
   GoogleMapController _controller;
   int num = 1;
+  final authService = AuthService();
 
   @override
   void initState() {
@@ -286,6 +288,33 @@ class Carselector extends State<HomeScreen> {
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                      Positioned(
+                        top: 80.0,
+                        left: MediaQuery.of(context).size.width-70.0,
+                        child: InkWell(
+                          onTap: () {
+                            authService.logout();
+                            Navigator.pushNamed(context, '/login');
+                          },
+                          child: Container(
+                            height: 60.0,
+                            width: 60.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              color: Colors.grey[400],
+                            ),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text("Logout",
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15.0,
+                                ),),
+                            ),
+                          ),
                         ),
                       ),
                     ],

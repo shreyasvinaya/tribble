@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tribble/screens/pickup_locations.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:tribble/services/auth_service.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -17,6 +18,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   GoogleMapController _controller;
+  final authService = AuthService();
   List<Marker> allMarkers = [];
   PageController _pageController;
   int prevPage;
@@ -201,7 +203,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -272,6 +273,33 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontWeight: FontWeight.w600,
                     fontSize: 15.0,
                   ),),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 150.0,
+            left: MediaQuery.of(context).size.width-70.0,
+            child: InkWell(
+              onTap: () {
+                authService.logout();
+                Navigator.pushNamed(context, '/login');
+              },
+              child: Container(
+                height: 60.0,
+                width: 60.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.grey[400],
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text("Logout",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15.0,
+                    ),),
                 ),
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -274,7 +275,14 @@ class Checkout extends StatelessWidget {
                         SizedBox(width: 15.0,),
                         InkWell(
                           onTap: () {
-                            Navigator.pushReplacementNamed(context, '/confirm');
+                            Map <String, dynamic> data = {
+                              "pickupLocation" : GlobalConfiguration().get("location").toString(),
+                              "price" : GlobalConfiguration().get("price").toString(),
+                              "carType" : GlobalConfiguration().get("type").toString(),
+                              "time" : '$num1 day(s), $num2 hour(s)'
+                            };
+                            FirebaseFirestore.instance.collection("userData").add(data);
+                            Navigator.pushReplacementNamed(context, '/rentData');
                           },
                           child: Container(
                             height: 90.0,

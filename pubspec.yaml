@@ -30,7 +30,7 @@ dependencies:
   flutter_staggered_animations: ^1.0.0
   fluttertoast: ^8.0.7
   video_player: ^1.0.1
-
+  cloud_firestore: ^2.2.0
 
 
 
