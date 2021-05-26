@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -287,6 +288,14 @@ class Checkout extends StatelessWidget {
                             };
                             FirebaseFirestore.instance.collection("userData").add(data);
                             Navigator.pushReplacementNamed(context, '/rentData');
+                            Fluttertoast.showToast(
+                              msg: "Car has been added to your bookings!",
+                              toastLength: Toast.LENGTH_SHORT,
+                              backgroundColor: Colors.white.withOpacity(0.8),
+                              textColor: Colors.black,
+                              gravity: ToastGravity.BOTTOM,
+                              fontSize: 16.0,
+                            );
                           },
                           child: Container(
                             height: 90.0,
