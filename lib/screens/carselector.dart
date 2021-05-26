@@ -188,13 +188,13 @@ class Carselector extends State<HomeScreen> {
                           color: Colors.grey[800],
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Icon(
                               Icons.menu,
                               size: 35,
                               color: Colors.white,
                             ),
+                            Spacer(),
                             Text(
                               "${GlobalConfiguration().get("location")}",
                               style: TextStyle(
@@ -204,6 +204,7 @@ class Carselector extends State<HomeScreen> {
                                 color: Colors.white,
                               ),
                             ),
+                            Spacer(),
                           ],
                         ),
                       ),
