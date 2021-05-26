@@ -1,16 +1,7 @@
-# tribble
+## Tribble  -  A car rental app
 
-A new Flutter project.
++ [Resources](https://drive.google.com/drive/folders/1Ea1gNxy9yBpPksvfdTcQErhbo1nE17o2) - (APK is included in the resources drive)
 
-## Getting Started
++ This App includes a sign in feature, Google maps, Search bar to look up locations, animations, usage of Stream of data etc
++ It also include pop up dialogues, toasts, a custom drawer, beautiful google camera animations, a carousel, a way to toggle map theme, and a little surpise :D 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
