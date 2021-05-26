@@ -96,6 +96,7 @@ class Checkout extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
                             ],
@@ -123,6 +124,7 @@ class Checkout extends StatelessWidget {
                                 style:TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               )
                             ],

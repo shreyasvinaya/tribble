@@ -319,6 +319,7 @@ class Carselector extends State<HomeScreen> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
+                                                                      color: Colors.black
                                                                 ),
                                                               ),
                                                               SizedBox(
