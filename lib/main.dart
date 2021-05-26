@@ -25,6 +25,7 @@ class Material1App extends StatelessWidget {
     return Provider(
       create: (context) => AuthBloc(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Tribble',
         theme: ThemeData(),
         darkTheme: ThemeData.dark(),

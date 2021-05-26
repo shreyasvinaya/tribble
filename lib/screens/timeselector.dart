@@ -64,150 +64,145 @@ class _TimeselectorState extends State<Timeselector> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    FloatingActionButton(onPressed: () {
-                                      setState(() {
-                                        if(num1 > 0){
-                                          num1 -= 1;
-                                        }
-                                        else {
-                                          num1 = num1;
-                                          Fluttertoast.showToast(
-                                            msg: "You can't rent for less than 0 days",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            backgroundColor: Colors.white.withOpacity(0.8),
-                                            textColor: Colors.black,
-                                            gravity: ToastGravity.BOTTOM,
-                                            fontSize: 16.0,
-                                          );
-                                        }
-                                      });
-                                    },
-                                      backgroundColor: Colors.greenAccent,
-                                      elevation: 0.0,
-                                      child: Icon(
-                                        Icons.remove,
-                                        color: Colors.white,
-                                        size: 40.0,
-                                      ),
-                                    ),
-                                    SizedBox(width: 15.0,),
-                                    Container(
-                                      height: 100.0,
-                                      width: 200.0,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20.0),
-                                        color: Colors.cyan[700].withOpacity(0.8),
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text("$num1 Days",
-                                          style: TextStyle(
-                                              fontSize: 40.0,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold
-                                          ),
+                                Container(
+                                  height: 50.0,
+                                  width: MediaQuery.of(context).size.width-100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.tealAccent,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      IconButton(
+                                        iconSize: 40.0,
+                                        onPressed: () {
+                                          setState(() {
+                                            num1 += 1;
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.add,
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(width: 15.0,),
-                                    FloatingActionButton(onPressed: () {
-                                      setState(() {
-                                        num1 += 1;
-                                      });
-                                    },
-                                      backgroundColor: Colors.greenAccent,
-                                      elevation: 0.0,
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                        size: 40.0,
+                                      VerticalDivider(
+                                        color: Colors.black,
+                                        width: 20.0,
+                                        thickness: 2.0,
                                       ),
-                                    ),
-                                  ],
+                                      IconButton(
+                                        iconSize: 40.0,
+                                        onPressed: () {
+                                          setState(() {
+                                            if(num2 < 23){
+                                              num2 += 1;
+                                            }
+                                            else {
+                                              num2 = 0;
+                                              num1 += 1;
+                                            }
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.add,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                SizedBox(height: 40.0,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    FloatingActionButton(onPressed: () {
-                                      setState(() {
-                                        if(num2 > 0){
-                                          if(num1 == 0 && num2 == 1){
-                                            Fluttertoast.showToast(
-                                              msg:"You can't rent for less than 1 hour",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              backgroundColor:
-                                              Colors.white.withOpacity(0.8),
-                                              textColor: Colors.black,
-                                              gravity: ToastGravity.BOTTOM,
-                                              fontSize: 16.0,
-                                            );
-                                          }
-                                          else{
-                                            num2 -= 1;
-                                          }
-                                        }
-                                        else {
-                                          if(num1 > 0 && num2 == 0){
-                                            num1 -= 1;
-                                            num2 = 23;
-                                          }
-                                        }
-                                      });
-                                    },
-                                      backgroundColor: Colors.greenAccent,
-                                      elevation: 0.0,
-                                      child: Icon(
-                                        Icons.remove,
-                                        color: Colors.white,
-                                        size: 40.0,
-                                      ),
+                                SizedBox(height: 8.0,),
+                                Container(
+                                  height: 100.0,
+                                  width: MediaQuery.of(context).size.width-100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Colors.cyan[700].withOpacity(0.8),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text("$num1 Days, $num2 hours",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 40.0,
+                                      color: Colors.white,
                                     ),
-                                    SizedBox(width: 15.0,),
-                                    Container(
-                                      height: 100.0,
-                                      width: 200.0,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20.0),
-                                        color: Colors.cyan[700].withOpacity(0.8),
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text("$num2 Hours",
-                                          style: TextStyle(
-                                              fontSize: 40.0,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold
-                                          ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 8.0,),
+                                Container(
+                                  height: 50.0,
+                                  width: MediaQuery.of(context).size.width-100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.tealAccent,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      IconButton(
+                                        iconSize: 40.0,
+                                        onPressed: () {
+                                          setState(() {
+                                            if(num1 > 0){
+                                              num1 -= 1;
+                                            }
+                                            else {
+                                              num1 = num1;
+                                              Fluttertoast.showToast(
+                                                msg: "You can't rent for less than 0 days",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                backgroundColor: Colors.white.withOpacity(0.8),
+                                                textColor: Colors.black,
+                                                gravity: ToastGravity.BOTTOM,
+                                                fontSize: 16.0,
+                                              );
+                                            }
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.remove,
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(width: 15.0,),
-                                    FloatingActionButton(onPressed: () {
-                                      setState(() {
-                                        if(num2 < 23){
-                                          num2 += 1;
-                                        }
-                                        else {
-                                          num2 = 0;
-                                          num1 += 1;
-                                        }
-                                      });
-                                    },
-                                      backgroundColor: Colors.greenAccent,
-                                      elevation: 0.0,
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                        size: 40.0,
+                                      VerticalDivider(
+                                        color: Colors.black,
+                                        width: 20.0,
+                                        thickness: 2.0,
                                       ),
-                                    ),
-                                  ],
+                                      IconButton(
+                                        iconSize: 40.0,
+                                        onPressed: () {
+                                          setState(() {
+                                            if(num2 > 0){
+                                              if(num1 == 0 && num2 == 1){
+                                                Fluttertoast.showToast(
+                                                  msg:"You can't rent for less than 1 hour",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  backgroundColor:
+                                                  Colors.white.withOpacity(0.8),
+                                                  textColor: Colors.black,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  fontSize: 16.0,
+                                                );
+                                              }
+                                              else{
+                                                num2 -= 1;
+                                              }
+                                            }
+                                            else {
+                                              if(num1 > 0 && num2 == 0){
+                                                num1 -= 1;
+                                                num2 = 23;
+                                              }
+                                            }
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.remove,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
