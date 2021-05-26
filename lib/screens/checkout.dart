@@ -90,6 +90,7 @@ class Checkout extends StatelessWidget {
                               Icon(
                                 Icons.watch_later_outlined,
                                 size: 25.0,
+                                color: Colors.black,
                               ),
                               SizedBox(width: 5.0,),
                               Text("$showtime",
@@ -117,6 +118,7 @@ class Checkout extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 30.0,
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.black,
                                 ),
                               ),
                               SizedBox(width: 5.0,),

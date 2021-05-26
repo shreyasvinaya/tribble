@@ -65,19 +65,22 @@ class _rentDataState extends State<rentData>  {
                                     Text(locations[index],
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 20.0
+                                      fontSize: 20.0,
+                                      color: Colors.black,
                                     ),
                                     ),
                                     Text(time[index],
                                     style: TextStyle(
                                       fontSize: 17.0,
                                       fontWeight: FontWeight.w400,
+                                      color: Colors.black,
                                     ),
                                     ),
                                     Text(carType[index],
                                     style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.w600,
+                                      color: Colors.black,
                                     ),
                                     )
                                   ],
@@ -88,11 +91,13 @@ class _rentDataState extends State<rentData>  {
                                     Icon(
                                       Icons.directions_car_rounded,
                                       size: 35.0,
+                                      color: Colors.black,
                                     ),
                                     Text("${price[index]}/hr",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 19.0,
+                                      color: Colors.black,
                                     ),
                                     ),
                                     InkWell(
@@ -104,11 +109,13 @@ class _rentDataState extends State<rentData>  {
                                           Icon(
                                             Icons.chevron_right,
                                             size: 27.0,
+                                            color: Colors.black,
                                           ),
                                           Text("More Info",
                                           style: TextStyle(
                                             fontSize: 15.0,
                                             fontWeight: FontWeight.w400,
+                                            color: Colors.black
                                           ),
                                           )
                                         ],

@@ -15,7 +15,7 @@ class _ConfirmState extends State<Confirm> {
     _controller = VideoPlayerController.asset('assets/confirm.mp4');
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.setLooping(true);
-    _controller.setVolume(1.0);
+    _controller.setVolume(100.0);
     _controller.play();
 
     super.initState();
