@@ -64,56 +64,61 @@ class _TimeselectorState extends State<Timeselector> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                  height: 50.0,
-                                  width: MediaQuery.of(context).size.width-100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    color: Colors.tealAccent,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      IconButton(
-                                        iconSize: 40.0,
-                                        onPressed: () {
-                                          setState(() {
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          num1 += 1;
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 50.0,
+                                        width: (MediaQuery.of(context).size.width-100)/2,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                          color: Colors.tealAccent,
+                                        ),
+                                        child: Icon(
+                                          Icons.add,
+                                          size: 40.0,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          if(num2 < 23){
+                                            num2 += 1;
+                                          }
+                                          else {
+                                            num2 = 0;
                                             num1 += 1;
-                                          });
-                                        },
-                                        icon: Icon(
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 50.0,
+                                        width: (MediaQuery.of(context).size.width-100)/2,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                          color: Colors.tealAccent,
+                                        ),
+                                        child: Icon(
                                           Icons.add,
+                                          size: 40.0,
+                                          color: Colors.black,
                                         ),
                                       ),
-                                      VerticalDivider(
-                                        color: Colors.black,
-                                        width: 20.0,
-                                        thickness: 2.0,
-                                      ),
-                                      IconButton(
-                                        iconSize: 40.0,
-                                        onPressed: () {
-                                          setState(() {
-                                            if(num2 < 23){
-                                              num2 += 1;
-                                            }
-                                            else {
-                                              num2 = 0;
-                                              num1 += 1;
-                                            }
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.add,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(height: 8.0,),
                                 Container(
                                   height: 100.0,
-                                  width: MediaQuery.of(context).size.width-100,
+                                  width: MediaQuery.of(context).size.width-30,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Colors.cyan[700].withOpacity(0.8),
@@ -121,88 +126,93 @@ class _TimeselectorState extends State<Timeselector> {
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text("$num1 Days, $num2 hours",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 40.0,
-                                      color: Colors.white,
-                                    ),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 35.0,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 SizedBox(height: 8.0,),
-                                Container(
-                                  height: 50.0,
-                                  width: MediaQuery.of(context).size.width-100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    color: Colors.tealAccent,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      IconButton(
-                                        iconSize: 40.0,
-                                        onPressed: () {
-                                          setState(() {
-                                            if(num1 > 0){
-                                              num1 -= 1;
-                                            }
-                                            else {
-                                              num1 = num1;
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          if(num1 > 0){
+                                            num1 -= 1;
+                                          }
+                                          else {
+                                            num1 = num1;
+                                            Fluttertoast.showToast(
+                                              msg: "You can't rent for less than 0 days",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              backgroundColor: Colors.white.withOpacity(0.8),
+                                              textColor: Colors.black,
+                                              gravity: ToastGravity.BOTTOM,
+                                              fontSize: 16.0,
+                                            );
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 50.0,
+                                        width: (MediaQuery.of(context).size.width-100)/2,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                          color: Colors.tealAccent,
+                                        ),
+                                        child: Icon(
+                                          Icons.remove,
+                                          size: 45.0,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          if(num2 > 0){
+                                            if(num1 == 0 && num2 == 1){
                                               Fluttertoast.showToast(
-                                                msg: "You can't rent for less than 0 days",
+                                                msg:"You can't rent for less than 1 hour",
                                                 toastLength: Toast.LENGTH_SHORT,
-                                                backgroundColor: Colors.white.withOpacity(0.8),
+                                                backgroundColor:
+                                                Colors.white.withOpacity(0.8),
                                                 textColor: Colors.black,
                                                 gravity: ToastGravity.BOTTOM,
                                                 fontSize: 16.0,
                                               );
                                             }
-                                          });
-                                        },
-                                        icon: Icon(
+                                            else{
+                                              num2 -= 1;
+                                            }
+                                          }
+                                          else {
+                                            if(num1 > 0 && num2 == 0){
+                                              num1 -= 1;
+                                              num2 = 23;
+                                            }
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 50.0,
+                                        width: (MediaQuery.of(context).size.width-100)/2,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                          color: Colors.tealAccent,
+                                        ),
+                                        child: Icon(
                                           Icons.remove,
+                                          size: 45.0,
+                                          color: Colors.black,
                                         ),
                                       ),
-                                      VerticalDivider(
-                                        color: Colors.black,
-                                        width: 20.0,
-                                        thickness: 2.0,
-                                      ),
-                                      IconButton(
-                                        iconSize: 40.0,
-                                        onPressed: () {
-                                          setState(() {
-                                            if(num2 > 0){
-                                              if(num1 == 0 && num2 == 1){
-                                                Fluttertoast.showToast(
-                                                  msg:"You can't rent for less than 1 hour",
-                                                  toastLength: Toast.LENGTH_SHORT,
-                                                  backgroundColor:
-                                                  Colors.white.withOpacity(0.8),
-                                                  textColor: Colors.black,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  fontSize: 16.0,
-                                                );
-                                              }
-                                              else{
-                                                num2 -= 1;
-                                              }
-                                            }
-                                            else {
-                                              if(num1 > 0 && num2 == 0){
-                                                num1 -= 1;
-                                                num2 = 23;
-                                              }
-                                            }
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.remove,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
