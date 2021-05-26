@@ -79,7 +79,6 @@ class Carselector extends State<HomeScreen> {
           child: ListView(
             children: [
             DrawerHeader(
-              //child: Text('Tribble'),
               decoration: BoxDecoration(color: Colors.grey[400]),
               child: StreamBuilder<User>(
                 stream: authBloc.currentUser,
@@ -213,6 +212,7 @@ class Carselector extends State<HomeScreen> {
                   child: Stack(
                     children: [
                       GoogleMap(
+                        compassEnabled: false,
                         initialCameraPosition: CameraPosition(
                           target: LatLng(
                               coordinates.latitude, coordinates.longitude),
@@ -327,11 +327,11 @@ class Carselector extends State<HomeScreen> {
                                                               Text(
                                                                 "₹${cars[index].price}/hr",
                                                                 style: TextStyle(
-                                                                    fontSize: 22.0,
+                                                                    fontSize: 21.0,
                                                                     letterSpacing: 1.0,
                                                                     fontWeight:
-                                                                        FontWeight.w600,
-                                                                    color: Colors.black45
+                                                                        FontWeight.w400,
+                                                                    color: Colors.black
                                                                 ),
                                                               ),
                                                             ],
