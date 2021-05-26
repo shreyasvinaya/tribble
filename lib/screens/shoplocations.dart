@@ -210,172 +210,163 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: Drawer(
-          child: ListView(
-        children: [
-          DrawerHeader(
-            //child: Text('Tribble'),
-            decoration: BoxDecoration(color: Colors.grey[400]),
-            child: StreamBuilder<User>(
-                stream: authBloc.currentUser,
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) return CircularProgressIndicator();
-                  print(snapshot.data.photoURL);
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(snapshot.data.displayName,
-                          style: TextStyle(fontSize: 25.0)),
-                      SizedBox(
-                        height: 7.0,
-                      ),
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            snapshot.data.photoURL.replaceFirst('s96', 's400')),
-                        radius: 40.0,
-                      ),
-                      SizedBox(
-                        height: 7.0,
-                      ),
-                      Text(snapshot.data.email,
-                          style: TextStyle(fontSize: 10.0)),
-                    ],
-                  );
-                }),
-          ),
-          ListTile(
-            leading: Icon(Icons.directions_car_rounded),
-            title: Text('My Bookings'),
-            onTap: () {
-              Navigator.pushNamed(context, '/rentData');
-            },
-          ),
-          Divider(
-            thickness: 1,
-          ),
-          ListTile(
-            leading: Icon(Icons.place_outlined),
-            title: Text('Top Destinations'),
-            onTap: () {
-              Navigator.pushNamed(context, '/goaDest');
-            },
-          ),
-          Divider(
-            thickness: 1,
-          ),
-          ListTile(
-              title: Text('Toggle Map Theme'),
-              leading: Icon(Icons.map),
-              onTap: () {
-                String map_type = "night";
-                if(num%2 == 0){
-                  map_type = "night";
-                }
-                else{
-                  map_type = "retro";
-                }
-                setState(() {
-                  num += 1;
-                  getJson('assets/map_styles/$map_type.json').then(setMapStyle);
-                });
-              }
-            ),
-            Divider(thickness: 1,),
-            ListTile(
-              leading: Icon(Icons.airplanemode_active),
-              title: Text('Book a Flight'),
-              onTap: () {
-                Navigator.pushNamed(context, '/confirm');
-              },
-            ),
-            Divider(thickness: 1,),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Sign Out'),
-              onTap: () {
-                authService.logout();
-                Navigator.pushNamed(context, '/login');
-              },
-            ),
-          ],
-        )),
-        body:
-        Stack(
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        drawer: Drawer(
+            child: ListView(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: GoogleMap(
-                compassEnabled: false,
-                zoomControlsEnabled: false,
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(15.3911, 73.8782),
-                  zoom: 15,
-                  tilt: 20,
-                ),
-                markers: Set.from(allMarkers),
-                onMapCreated: mapCreated,
-              ),
+            DrawerHeader(
+              //child: Text('Tribble'),
+              decoration: BoxDecoration(color: Colors.grey[400]),
+              child: StreamBuilder<User>(
+                  stream: authBloc.currentUser,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    print(snapshot.data.photoURL);
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(snapshot.data.displayName,
+                            style: TextStyle(fontSize: 25.0)),
+                        SizedBox(
+                          height: 7.0,
+                        ),
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              snapshot.data.photoURL.replaceFirst('s96', 's400')),
+                          radius: 40.0,
+                        ),
+                        SizedBox(
+                          height: 7.0,
+                        ),
+                        Text(snapshot.data.email,
+                            style: TextStyle(fontSize: 10.0)),
+                      ],
+                    );
+                  }),
             ),
-
-            Positioned(
-              top: 20.0,
-              left: MediaQuery.of(context).size.width-60.0,
-              child: InkWell(
+            ListTile(
+              leading: Icon(Icons.directions_car_rounded),
+              title: Text('My Bookings'),
+              onTap: () {
+                Navigator.pushNamed(context, '/rentData');
+              },
+            ),
+            Divider(
+              thickness: 1,
+            ),
+            ListTile(
+                title: Text('Toggle Map Theme'),
+                leading: Icon(Icons.map),
                 onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext) => _buildPopupDialogue(context)
-                  );
+                  Navigator.pop(context);
+                  String map_type = "night";
+                  if(num%2 == 0){
+                    map_type = "night";
+                  }
+                  else{
+                    map_type = "retro";
+                  }
+                  setState(() {
+                    num += 1;
+                    getJson('assets/map_styles/$map_type.json').then(setMapStyle);
+                  });
+                }
+              ),
+              Divider(thickness: 1,),
+              ListTile(
+                leading: Icon(Icons.airplanemode_active),
+                title: Text('Book a Flight'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/confirm');
                 },
+              ),
+              Divider(thickness: 1,),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Sign Out'),
+                onTap: () {
+                  authService.logout();
+                  Navigator.pushNamed(context, '/login');
+                },
+              ),
+            ],
+          )),
+          body:
+          Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: GoogleMap(
+                  compassEnabled: false,
+                  zoomControlsEnabled: false,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(15.3911, 73.8782),
+                    zoom: 15,
+                    tilt: 20,
+                  ),
+                  markers: Set.from(allMarkers),
+                  onMapCreated: mapCreated,
+                ),
+              ),
+
+              Positioned(
+                top: 20.0,
+                left: MediaQuery.of(context).size.width-60.0,
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext) => _buildPopupDialogue(context)
+                    );
+                  },
+                  child: Container(
+                    height: 45.0,
+                    width: 45.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.grey[400],
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Icon(Icons.read_more_outlined)
+                    ),
+                  ),
+                ),
+              ),
+
+              Positioned(
+                bottom : 0.0,
+                child: Container(
+                  height: 200.0,
+                  width: MediaQuery.of(context).size.width,
+                  child: PageView.builder(
+                        controller : _pageController,
+                        itemCount: pickupLocations.length,
+                        itemBuilder: (BuildContext context, int index){
+                          return _pickupLocationsList(index);
+                        }
+                    ),
+                  ),
+                ),
+
+              Positioned(
+                top: 20,
+                left: 20,
                 child: Container(
                   height: 45.0,
                   width: 45.0,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[400]
                   ),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Icon(Icons.read_more_outlined)
-                  ),
+                    child: IconButton(icon: Icon(Icons.menu), iconSize: 30, onPressed: () => _scaffoldKey.currentState.openDrawer())
                 ),
               ),
-            ),
-
-            Positioned(
-              bottom : 0.0,
-              child: Container(
-                height: 200.0,
-                width: MediaQuery.of(context).size.width,
-                child: PageView.builder(
-                      controller : _pageController,
-                      itemCount: pickupLocations.length,
-                      itemBuilder: (BuildContext context, int index){
-                        return _pickupLocationsList(index);
-                      }
-                  ),
-                ),
-              ),
-
-            Positioned(
-              top: 20,
-              left: 20,
-              child: Container(
-                height: 45.0,
-                width: 45.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey[400]
-                ),
-                  child: IconButton(icon: Icon(Icons.menu), iconSize: 30, onPressed: () => _scaffoldKey.currentState.openDrawer())
-              ),
-            ),
-          ],
-        ),
-
+            ],
+          ),
       ),
     );
   }

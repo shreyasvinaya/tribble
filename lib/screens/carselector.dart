@@ -123,6 +123,7 @@ class Carselector extends State<HomeScreen> {
             title: Text('Change Pickup Location'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pop(context);
             },
           ),
           Divider(
@@ -202,19 +203,6 @@ class Carselector extends State<HomeScreen> {
                                 letterSpacing: 1.0,
                                 color: Colors.white,
                               ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "\tChange Location?",
-                              style: TextStyle(
-                                color: Colors.white,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.0,
                             ),
                           ],
                         ),
