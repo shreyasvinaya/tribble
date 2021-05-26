@@ -211,6 +211,15 @@ class _PlacesState extends State<Places> {
             ),
           ),
           ListTile(
+            leading: Icon(Icons.chevron_left),
+            title: Text('Go Back'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
             leading: Icon(Icons.directions_car_rounded),
             title: Text('My Bookings'),
             onTap: () {
