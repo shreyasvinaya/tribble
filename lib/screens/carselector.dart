@@ -188,7 +188,7 @@ class Carselector extends State<HomeScreen> {
                           color: Colors.grey[800],
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Icon(
                               Icons.menu,
