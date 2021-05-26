@@ -1,10 +1,17 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:tribble/blocs/auth_bloc.dart';
 import 'package:tribble/screens/places_class.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter/services.dart';
 import 'package:tribble/services/auth_service.dart';
+
+import 'login.dart';
 
 class Places extends StatefulWidget {
   Places({Key key}) : super(key: key);
@@ -22,6 +29,7 @@ class _PlacesState extends State<Places> {
   int num = 1;
   final authService = AuthService();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  StreamSubscription<User> loginStateSubscription;
 
   final List<Locations> destinations = [
     Locations(
@@ -76,6 +84,16 @@ class _PlacesState extends State<Places> {
 
   @override
   void initState() {
+    var authBloc = Provider.of<AuthBloc>(context, listen: false);
+    loginStateSubscription = authBloc.currentUser.listen((fbUser) {
+      if (fbUser == null) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => LoginScreen(),
+          ),
+        );
+      }
+    });
     super.initState();
     destinations.forEach((element)
     {
@@ -139,7 +157,7 @@ class _PlacesState extends State<Places> {
                           child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.grey[300],
+                                color: Colors.white,
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -166,20 +184,23 @@ class _PlacesState extends State<Places> {
                                         destinations[index].Name,
                                         style: TextStyle(
                                             fontSize: 13,
-                                            fontWeight: FontWeight.bold
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black
                                         ),
                                       ),Text(
                                         destinations[index].address,
                                         style: TextStyle(
                                             fontSize: 12,
-                                            fontWeight: FontWeight.bold
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black
                                         ),
                                       ),Container(
                                         width: 160.0,
                                         child: Text(
                                           destinations[index].description,
                                           style: TextStyle(
-                                            fontSize: 11,
+                                              fontSize: 11,
+                                              color: Colors.black
                                           ),
                                         ),
                                       ),
@@ -199,26 +220,40 @@ class _PlacesState extends State<Places> {
 
   @override
   Widget build(BuildContext context) {
-
+    final authBloc = Provider.of<AuthBloc>(context);
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(child: ListView(
         children: [
           DrawerHeader(
-            child: Text('Tribble'),
-            decoration: BoxDecoration(
-                color: Colors.grey[400]
-            ),
+            decoration: BoxDecoration(color: Colors.grey[400]),
+            child: StreamBuilder<User>(
+                stream: authBloc.currentUser,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return CircularProgressIndicator();
+                  print(snapshot.data.photoURL);
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(snapshot.data.displayName,
+                          style: TextStyle(fontSize: 25.0)),
+                      SizedBox(
+                        height: 7.0,
+                      ),
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            snapshot.data.photoURL.replaceFirst('s96', 's400')),
+                        radius: 40.0,
+                      ),
+                      SizedBox(
+                        height: 7.0,
+                      ),
+                      Text(snapshot.data.email,
+                          style: TextStyle(fontSize: 10.0)),
+                    ],
+                  );
+                }),
           ),
-          ListTile(
-            leading: Icon(Icons.chevron_left),
-            title: Text('Go Back'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
-            },
-          ),
-          Divider(thickness: 1,),
           ListTile(
             leading: Icon(Icons.directions_car_rounded),
             title: Text('My Bookings'),
@@ -258,6 +293,15 @@ class _PlacesState extends State<Places> {
             title: Text('Book a Flight'),
             onTap: () {
               Navigator.pushNamed(context, '/confirm');
+            },
+          ),
+          Divider(thickness: 1,),
+          ListTile(
+            leading: Icon(Icons.chevron_left),
+            title: Text('Go Back'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
             },
           ),
           Divider(thickness: 1,),
@@ -302,48 +346,6 @@ class _PlacesState extends State<Places> {
                   itemBuilder: (BuildContext context, int index){
                     return _destinationsList(index);
                   }
-              ),
-            ),
-          ),
-
-          Positioned(
-            top: 120.0,
-            left: MediaQuery.of(context).size.width-70.0,
-            child: InkWell(
-              onTap: () {
-                String map_type = "night";
-                if(num%2 == 0){
-                  map_type = "night";
-                }
-                else{
-                  map_type = "retro";
-                }
-                setState(() {
-                  num += 1;
-                  getJson('assets/map_styles/$map_type.json').then(setMapStyle);
-                });
-              },
-              child: Container(
-                height: 60.0,
-                width: 60.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.grey[400],
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    )
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text("Switch\nTheme",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12.0,
-                      letterSpacing: 0.5
-                    ),),
-                ),
               ),
             ),
           ),

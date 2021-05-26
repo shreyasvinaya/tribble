@@ -217,7 +217,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListView(
           children: [
             DrawerHeader(
-              //child: Text('Tribble'),
               decoration: BoxDecoration(color: Colors.grey[400]),
               child: StreamBuilder<User>(
                   stream: authBloc.currentUser,
@@ -328,10 +327,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       color: Colors.grey[400],
+                      border: Border.all(width: 1)
                     ),
                     child: Align(
                       alignment: Alignment.center,
-                      child: Icon(Icons.read_more_outlined)
+                      child: Icon(Icons.info_outline_rounded)
                     ),
                   ),
                 ),
@@ -360,7 +360,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 45.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey[400]
+                    color: Colors.grey[400],
+                      border: Border.all(width: 1)
                   ),
                     child: IconButton(icon: Icon(Icons.menu), iconSize: 30, onPressed: () => _scaffoldKey.currentState.openDrawer())
                 ),
@@ -389,7 +390,7 @@ class _MyHomePageState extends State<MyHomePage> {
   moveCamera() {
     _controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
       target: pickupLocations[_pageController.page.toInt()].locationCoordinates,
-      zoom: 15,
+      zoom: 16,
       tilt: 45,
       bearing: 30,
     )));
