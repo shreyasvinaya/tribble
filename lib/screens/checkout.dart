@@ -38,7 +38,7 @@ class Checkout extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: AnimationConfiguration.toStaggeredList(
-                duration: Duration(milliseconds: 375),
+                duration: Duration(milliseconds: 700),
                 childAnimationBuilder: (widget) => SlideAnimation(
                   horizontalOffset: MediaQuery.of(context).size.width/2,
                   child: FadeInAnimation(child: widget),
@@ -107,7 +107,7 @@ class Checkout extends StatelessWidget {
                           width: MediaQuery.of(context).size.width/2-20,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
-                            color: Colors.teal,
+                            color: Colors.tealAccent,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +121,7 @@ class Checkout extends StatelessWidget {
                               SizedBox(width: 5.0,),
                               Text("$cost",
                                 style:TextStyle(
-                                  fontSize: 23.0,
+                                  fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                               )
@@ -161,7 +161,7 @@ class Checkout extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 25.0,),
-                              Text("₹ ${GlobalConfiguration().get("price")}",
+                              Text("₹ ${GlobalConfiguration().get("price")}/hr",
                                 style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.bold,

@@ -35,6 +35,7 @@ class _ConfirmState extends State<Confirm> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           title: Text('Professionals have standards :)'),
+          centerTitle: true,
         ),
         body: Center(
           child: FutureBuilder(
