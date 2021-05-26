@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
     return Scaffold(
-      backgroundColor: Colors.grey[850],
+      backgroundColor: Colors.grey[900],
         body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -46,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
             width: MediaQuery.of(context).size.width-80.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30.0),
+              border: Border.all(color: Colors.white, width: 2.0),
               color: Color(0xff000409),
             ),
             child: Row(

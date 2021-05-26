@@ -96,9 +96,9 @@ class Carselector extends State<HomeScreen> {
           Divider(thickness: 1,),
           ListTile(
             leading: Icon(Icons.place_outlined),
-            title: Text('Top Destinations'),
+            title: Text('Change Pickup Location'),
             onTap: () {
-              Navigator.pushNamed(context, '/goaDest');
+              Navigator.pop(context);
             },
           ),
           Divider(thickness: 1,),
@@ -122,7 +122,7 @@ class Carselector extends State<HomeScreen> {
           Divider(thickness: 1,),
           ListTile(
             leading: Icon(Icons.airplanemode_active),
-            title: Text('Book a Flight'),
+            title: Text('Book a flight'),
             onTap: () {
               Navigator.pushNamed(context, '/confirm');
             },
@@ -149,35 +149,35 @@ class Carselector extends State<HomeScreen> {
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
-                  child: FlatButton.icon(onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  child: InkWell(
+                    onTap: () => _scaffoldKey.currentState.openDrawer(),
+                    child: Container(
                       height: 60.0,
-                      minWidth: MediaQuery.of(context).size.width,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.grey[800],
                       ),
-                      color: Colors.grey[800],
-                      icon: IconButton(icon: Icon(Icons.menu), iconSize: 45, color: Colors.white, onPressed: () => _scaffoldKey.currentState.openDrawer()),
-                      label: Column(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
+                          Icon(
+                            Icons.menu,
+                            size: 35,
+                            color: Colors.white,
+                          ),
                           Text("${GlobalConfiguration().get("location")}",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 21,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.0,
-                              color: Colors.white70,
+                              color: Colors.white,
                             ),
                           ),
-                          SizedBox(height: 5,),
-                          Text("\tChange Location?",
-                            style: TextStyle(
-                                color: Colors.white,
-                              letterSpacing: 0.5,
-                            ),),
-                          SizedBox(height: 5.0,),
                         ],
-                      )),
+                      ),
+                    ),
+                  )
                 ),
                 Expanded(
                   child: Stack(
