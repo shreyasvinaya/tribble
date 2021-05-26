@@ -217,7 +217,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListView(
           children: [
             DrawerHeader(
-              //child: Text('Tribble'),
               decoration: BoxDecoration(color: Colors.grey[400]),
               child: StreamBuilder<User>(
                   stream: authBloc.currentUser,
@@ -331,7 +330,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: Align(
                       alignment: Alignment.center,
-                      child: Icon(Icons.read_more_outlined)
+                      child: Icon(Icons.info_outline_rounded)
                     ),
                   ),
                 ),

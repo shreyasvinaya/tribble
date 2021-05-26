@@ -77,11 +77,11 @@ class Carselector extends State<HomeScreen> {
       key: _scaffoldKey,
       drawer: Drawer(
           child: ListView(
-        children: [
-          DrawerHeader(
-            //child: Text('Tribble'),
-            decoration: BoxDecoration(color: Colors.grey[400]),
-            child: StreamBuilder<User>(
+            children: [
+            DrawerHeader(
+              //child: Text('Tribble'),
+              decoration: BoxDecoration(color: Colors.grey[400]),
+              child: StreamBuilder<User>(
                 stream: authBloc.currentUser,
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return CircularProgressIndicator();
@@ -103,68 +103,68 @@ class Carselector extends State<HomeScreen> {
                         height: 7.0,
                       ),
                       Text(snapshot.data.email,
-                          style: TextStyle(fontSize: 10.0)),
-                    ],
+                          style: TextStyle(fontSize: 10.0)),                    ],
                   );
                 }),
           ),
-          ListTile(
-            leading: Icon(Icons.directions_car_rounded),
-            title: Text('My Bookings'),
-            onTap: () {
-              Navigator.pushNamed(context, '/rentData');
-            },
-          ),
-          Divider(
-            thickness: 1,
-          ),
-          ListTile(
-            leading: Icon(Icons.place_outlined),
-            title: Text('Change Pickup Location'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
-            },
-          ),
-          Divider(
-            thickness: 1,
-          ),
-          ListTile(
-              title: Text('Toggle Map Theme'),
-              leading: Icon(Icons.map),
+              ListTile(
+                leading: Icon(Icons.directions_car_rounded),
+                title: Text('My Bookings'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/rentData');
+                },
+              ),
+              Divider(thickness: 1,),
+              ListTile(
+                leading: Icon(Icons.place_outlined),
+                title: Text('Change Pickup Location'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+              ),
+              Divider(thickness: 1,),
+              ListTile(
+                title: Text('Toggle Map Theme'),
+                leading: Icon(Icons.map),
+                onTap: () {
+                  String map_type = "night";
+                  if (num % 2 == 0) {
+                    map_type = "night";
+                  } else {
+                    map_type = "retro";
+                  }
+                  setState(() {
+                    num += 1;
+                    getJson('assets/map_styles/$map_type.json').then(setMapStyle);
+                  });
+                }),
+              Divider(thickness: 1,),
+              ListTile(
+                leading: Icon(Icons.airplanemode_active),
+                title: Text('Book a flight'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/confirm');
+                },
+              ),
+              Divider(thickness: 1),
+              ListTile(
+                leading: Icon(Icons.chevron_left),
+                title: Text('Go Back'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+              ),
+              Divider(thickness: 1),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Sign Out'),
               onTap: () {
-                String map_type = "night";
-                if (num % 2 == 0) {
-                  map_type = "night";
-                } else {
-                  map_type = "retro";
-                }
-                setState(() {
-                  num += 1;
-                  getJson('assets/map_styles/$map_type.json').then(setMapStyle);
-                });
-              }),
-          Divider(
-            thickness: 1,
-          ),
-          ListTile(
-            leading: Icon(Icons.airplanemode_active),
-            title: Text('Book a flight'),
-            onTap: () {
-              Navigator.pushNamed(context, '/confirm');
-            },
-          ),
-          Divider(
-            thickness: 1,
-          ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Sign Out'),
-            onTap: () {
-              authService.logout();
-              Navigator.pushNamed(context, '/login');
-            },
-          ),
+                authService.logout();
+                Navigator.pushNamed(context, '/login');
+              },
+            ),
         ],
       )),
       body: SafeArea(

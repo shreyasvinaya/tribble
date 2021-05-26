@@ -28,7 +28,7 @@ class _TimeselectorState extends State<Timeselector> {
               ),
               child: Align(
                 alignment: Alignment.center,
-                child: Text("Time Duration",
+                child: Text("Duration",
                   style: TextStyle(
                     fontSize: 25.0,
                     fontWeight: FontWeight.bold,
