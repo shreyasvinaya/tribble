@@ -4,7 +4,10 @@ import 'package:tribble/services/auth_service.dart';
 
 class AuthBloc {
   final authService = AuthService();
-  final googleSignin = GoogleSignIn(scopes: ['email']);
+  final googleSignin = GoogleSignIn(
+    scopes: ['email'],
+    hostedDomain: "goa.bits-pilani.ac.in",
+  );
 
   Stream<User> get currentUser => authService.currentUser;
 
@@ -26,10 +29,10 @@ class AuthBloc {
   }
 
   logout() async {
-      try {
-        return await authService.logout();
-      } catch(e) {
-        return null;
-      }
+    try {
+      return await authService.logout();
+    } catch (e) {
+      return null;
+    }
   }
 }

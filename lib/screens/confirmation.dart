@@ -29,7 +29,7 @@ class _ConfirmState extends State<Confirm> {
   }
 
   @override
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -67,5 +67,5 @@ Widget build(BuildContext context) {
         ),
       ),
     );
-}
+  }
 }

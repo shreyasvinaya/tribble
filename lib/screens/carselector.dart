@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:tribble/services/auth_service.dart';
 
-
 class Car {
   String type, price, image;
   Car({this.type, this.price, this.image});
@@ -62,10 +61,7 @@ class Carselector extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
-    LatLng coordinates = ModalRoute
-        .of(context)
-        .settings
-        .arguments;
+    LatLng coordinates = ModalRoute.of(context).settings.arguments;
     Set<Marker> _createMarker() {
       return {
         Marker(
@@ -75,16 +71,42 @@ class Carselector extends State<HomeScreen> {
         ),
       };
     }
+
     return Scaffold(
       backgroundColor: Colors.black,
       key: _scaffoldKey,
-      drawer: Drawer(child: ListView(
+      drawer: Drawer(
+          child: ListView(
         children: [
           DrawerHeader(
-            child: Text('Tribble'),
-            decoration: BoxDecoration(
-                color: Colors.grey[400]
-            ),
+            //child: Text('Tribble'),
+            decoration: BoxDecoration(color: Colors.grey[400]),
+            child: StreamBuilder<User>(
+                stream: authBloc.currentUser,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return CircularProgressIndicator();
+                  print(snapshot.data.photoURL);
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(snapshot.data.displayName,
+                          style: TextStyle(fontSize: 25.0)),
+                      SizedBox(
+                        height: 7.0,
+                      ),
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            snapshot.data.photoURL.replaceFirst('s96', 's400')),
+                        radius: 40.0,
+                      ),
+                      SizedBox(
+                        height: 7.0,
+                      ),
+                      Text(snapshot.data.email,
+                          style: TextStyle(fontSize: 10.0)),
+                    ],
+                  );
+                }),
           ),
           ListTile(
             leading: Icon(Icons.directions_car_rounded),
@@ -93,7 +115,9 @@ class Carselector extends State<HomeScreen> {
               Navigator.pushNamed(context, '/rentData');
             },
           ),
-          Divider(thickness: 1,),
+          Divider(
+            thickness: 1,
+          ),
           ListTile(
             leading: Icon(Icons.place_outlined),
             title: Text('Top Destinations'),
@@ -101,25 +125,27 @@ class Carselector extends State<HomeScreen> {
               Navigator.pushNamed(context, '/goaDest');
             },
           ),
-          Divider(thickness: 1,),
+          Divider(
+            thickness: 1,
+          ),
           ListTile(
               title: Text('Toggle Map Theme'),
               leading: Icon(Icons.map),
               onTap: () {
                 String map_type = "night";
-                if(num%2 == 0){
+                if (num % 2 == 0) {
                   map_type = "night";
-                }
-                else{
+                } else {
                   map_type = "retro";
                 }
                 setState(() {
                   num += 1;
                   getJson('assets/map_styles/$map_type.json').then(setMapStyle);
                 });
-              }
+              }),
+          Divider(
+            thickness: 1,
           ),
-          Divider(thickness: 1,),
           ListTile(
             leading: Icon(Icons.airplanemode_active),
             title: Text('Book a Flight'),
@@ -127,7 +153,9 @@ class Carselector extends State<HomeScreen> {
               Navigator.pushNamed(context, '/confirm');
             },
           ),
-          Divider(thickness: 1,),
+          Divider(
+            thickness: 1,
+          ),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Sign Out'),
@@ -149,19 +177,26 @@ class Carselector extends State<HomeScreen> {
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
-                  child: FlatButton.icon(onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  child: FlatButton.icon(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       height: 60.0,
                       minWidth: MediaQuery.of(context).size.width,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       color: Colors.grey[800],
-                      icon: IconButton(icon: Icon(Icons.menu), iconSize: 45, color: Colors.white, onPressed: () => _scaffoldKey.currentState.openDrawer()),
+                      icon: IconButton(
+                          icon: Icon(Icons.menu),
+                          iconSize: 45,
+                          color: Colors.white,
+                          onPressed: () =>
+                              _scaffoldKey.currentState.openDrawer()),
                       label: Column(
                         children: [
-                          Text("${GlobalConfiguration().get("location")}",
+                          Text(
+                            "${GlobalConfiguration().get("location")}",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -169,13 +204,19 @@ class Carselector extends State<HomeScreen> {
                               color: Colors.white70,
                             ),
                           ),
-                          SizedBox(height: 5,),
-                          Text("\tChange Location?",
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "\tChange Location?",
                             style: TextStyle(
-                                color: Colors.white,
+                              color: Colors.white,
                               letterSpacing: 0.5,
-                            ),),
-                          SizedBox(height: 5.0,),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
                         ],
                       )),
                 ),
@@ -202,11 +243,11 @@ class Carselector extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 GestureDetector(
-                                  onTap: (){
+                                  onTap: () {
                                     authService.logout();
                                     Navigator.pushNamed(context, '/login');
                                   },
-                                    child: CircleAvatar(
+                                  child: CircleAvatar(
                                     backgroundImage: NetworkImage(snapshot
                                         .data.photoURL
                                         .replaceFirst('s96', 's400')),
@@ -222,77 +263,107 @@ class Carselector extends State<HomeScreen> {
                                     scrollDirection: Axis.horizontal,
                                     itemCount: cars.length,
                                     itemBuilder: (context, index) {
-                                      return AnimationConfiguration.staggeredList(
+                                      return AnimationConfiguration
+                                          .staggeredList(
                                         position: index,
                                         duration: Duration(milliseconds: 600),
                                         child: SlideAnimation(
-                                          horizontalOffset: MediaQuery.of(context).size.width/2,
+                                          horizontalOffset:
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2,
                                           child: FadeInAnimation(
                                             child: InkWell(
                                               onTap: () {
                                                 Navigator.pushNamed(
                                                     context, '/timeselect');
-                                                GlobalConfiguration().updateValue(
-                                                    "type", cars[index].type);
-                                                GlobalConfiguration().updateValue(
-                                                    "price", cars[index].price);
-                                                GlobalConfiguration().updateValue(
-                                                    "image", cars[index].image);
+                                                GlobalConfiguration()
+                                                    .updateValue("type",
+                                                        cars[index].type);
+                                                GlobalConfiguration()
+                                                    .updateValue("price",
+                                                        cars[index].price);
+                                                GlobalConfiguration()
+                                                    .updateValue("image",
+                                                        cars[index].image);
                                               },
                                               child: Container(
                                                 margin: EdgeInsets.fromLTRB(
                                                     0.0, 10.0, 17.0, 17.0),
                                                 width: 200,
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(
-                                                      15.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0),
                                                   color: Colors.blue[100],
                                                 ),
                                                 child: Stack(
-                                                  alignment: Alignment.topCenter,
+                                                  alignment:
+                                                      Alignment.topCenter,
                                                   children: [
                                                     Positioned(
                                                       bottom: 10.0,
                                                       child: Container(
                                                         height: 100.0,
                                                         width: 150.0,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius
-                                                              .circular(20.0),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20.0),
                                                           boxShadow: [
                                                             BoxShadow(
-                                                              color: Colors.black12,
-                                                              offset: Offset(7.0, 7.0),
+                                                              color: Colors
+                                                                  .black12,
+                                                              offset: Offset(
+                                                                  7.0, 7.0),
                                                             ),
                                                           ],
-                                                          color: Colors.blue[300],
+                                                          color:
+                                                              Colors.blue[300],
                                                         ),
                                                         child: Padding(
-                                                          padding: EdgeInsets.fromLTRB(
-                                                              30.0, 20.0, 0.0, 0.0),
+                                                          padding: EdgeInsets
+                                                              .fromLTRB(
+                                                                  30.0,
+                                                                  20.0,
+                                                                  0.0,
+                                                                  0.0),
                                                           child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment
-                                                                .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
                                                             children: [
-                                                              Text("${cars[index]
-                                                                  .type}",
-                                                                style: TextStyle(
-                                                                  fontSize: 20.0,
-                                                                  letterSpacing: 1.5,
-                                                                  fontWeight: FontWeight
-                                                                      .bold,
+                                                              Text(
+                                                                "${cars[index].type}",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      20.0,
+                                                                  letterSpacing:
+                                                                      1.5,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
                                                                 ),
                                                               ),
-                                                              SizedBox(height: 15.0,),
-                                                              Text("₹${cars[index]
-                                                                  .price}/hr",
+                                                              SizedBox(
+                                                                height: 15.0,
+                                                              ),
+                                                              Text(
+                                                                "₹${cars[index].price}/hr",
                                                                 style: TextStyle(
-                                                                    fontSize: 22.0,
-                                                                    letterSpacing: 1.0,
-                                                                    fontWeight: FontWeight
-                                                                        .w600,
-                                                                    color: Colors.white
-                                                                ),
+                                                                    fontSize:
+                                                                        22.0,
+                                                                    letterSpacing:
+                                                                        1.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: Colors
+                                                                        .white),
                                                               ),
                                                             ],
                                                           ),
@@ -303,8 +374,7 @@ class Carselector extends State<HomeScreen> {
                                                       height: 110.0,
                                                       width: 200.0,
                                                       image: AssetImage(
-                                                          'assets/${cars[index]
-                                                              .image}'),
+                                                          'assets/${cars[index].image}'),
                                                     ),
                                                   ],
                                                 ),
@@ -313,8 +383,7 @@ class Carselector extends State<HomeScreen> {
                                           ),
                                         ),
                                       );
-                                    }
-                                ),
+                                    }),
                               ),
                             ),
                           ],
@@ -330,17 +399,19 @@ class Carselector extends State<HomeScreen> {
       ),
     );
   }
-  void mapCreated(controller){
+
+  void mapCreated(controller) {
     setState(() {
       _controller = controller;
       getJson('assets/map_styles/night.json').then(setMapStyle);
     });
   }
-  Future<String> getJson(String path) async{
+
+  Future<String> getJson(String path) async {
     return await rootBundle.loadString(path);
   }
-  void setMapStyle(String mapStyle){
+
+  void setMapStyle(String mapStyle) {
     _controller.setMapStyle(mapStyle);
   }
-
 }
