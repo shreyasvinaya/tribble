@@ -225,25 +225,8 @@ class Carselector extends State<HomeScreen> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    authService.logout();
-                                    Navigator.pushNamed(context, '/login');
-                                  },
-                                  child: CircleAvatar(
-                                    backgroundImage: NetworkImage(snapshot
-                                        .data.photoURL
-                                        .replaceFirst('s96', 's400')),
-                                    radius: 25.0,
-                                  ),
-                                ),
-                              ],
-                            ),
                             Container(
                               height: 250.0,
                               child: AnimationLimiter(
