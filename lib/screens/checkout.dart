@@ -38,7 +38,7 @@ class Checkout extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: AnimationConfiguration.toStaggeredList(
-                duration: Duration(milliseconds: 375),
+                duration: Duration(milliseconds: 700),
                 childAnimationBuilder: (widget) => SlideAnimation(
                   horizontalOffset: MediaQuery.of(context).size.width/2,
                   child: FadeInAnimation(child: widget),

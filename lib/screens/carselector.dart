@@ -205,7 +205,7 @@ class Carselector extends State<HomeScreen> {
                                     itemBuilder: (context, index) {
                                       return AnimationConfiguration.staggeredList(
                                         position: index,
-                                        duration: Duration(milliseconds: 600),
+                                        duration: Duration(milliseconds: 700),
                                         child: SlideAnimation(
                                           horizontalOffset: MediaQuery.of(context).size.width/2,
                                           child: FadeInAnimation(
