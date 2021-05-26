@@ -138,6 +138,7 @@ class Carselector extends State<HomeScreen> {
                     num += 1;
                     getJson('assets/map_styles/$map_type.json').then(setMapStyle);
                   });
+                  Navigator.pop(context);
                 }),
               Divider(thickness: 1,),
               ListTile(
@@ -267,7 +268,7 @@ class Carselector extends State<HomeScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           15.0),
-                                                  color: Colors.blue[100],
+                                                  color: Colors.white,
                                                 ),
                                                 child: Stack(
                                                   alignment:
@@ -293,7 +294,7 @@ class Carselector extends State<HomeScreen> {
                                                             ),
                                                           ],
                                                           color:
-                                                              Colors.blue[300],
+                                                              Colors.grey[100],
                                                         ),
                                                         child: Padding(
                                                           padding: EdgeInsets
@@ -326,15 +327,12 @@ class Carselector extends State<HomeScreen> {
                                                               Text(
                                                                 "₹${cars[index].price}/hr",
                                                                 style: TextStyle(
-                                                                    fontSize:
-                                                                        22.0,
-                                                                    letterSpacing:
-                                                                        1.0,
+                                                                    fontSize: 22.0,
+                                                                    letterSpacing: 1.0,
                                                                     fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    color: Colors
-                                                                        .white),
+                                                                        FontWeight.w600,
+                                                                    color: Colors.black45
+                                                                ),
                                                               ),
                                                             ],
                                                           ),
