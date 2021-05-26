@@ -227,7 +227,7 @@ class Carselector extends State<HomeScreen> {
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(
                                                       15.0),
-                                                  color: Colors.blue[100],
+                                                  color: Colors.greenAccent[100],
                                                 ),
                                                 child: Stack(
                                                   alignment: Alignment.topCenter,
@@ -246,7 +246,7 @@ class Carselector extends State<HomeScreen> {
                                                               offset: Offset(7.0, 7.0),
                                                             ),
                                                           ],
-                                                          color: Colors.blue[300],
+                                                          color: Colors.amber[200],
                                                         ),
                                                         child: Padding(
                                                           padding: EdgeInsets.fromLTRB(
@@ -262,6 +262,7 @@ class Carselector extends State<HomeScreen> {
                                                                   letterSpacing: 1.5,
                                                                   fontWeight: FontWeight
                                                                       .bold,
+                                                                  color: Colors.grey[800]
                                                                 ),
                                                               ),
                                                               SizedBox(height: 15.0,),
@@ -272,7 +273,7 @@ class Carselector extends State<HomeScreen> {
                                                                     letterSpacing: 1.0,
                                                                     fontWeight: FontWeight
                                                                         .w600,
-                                                                    color: Colors.white
+                                                                    color: Colors.grey[600]
                                                                 ),
                                                               ),
                                                             ],

@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.grey[300],
+                                color: Colors.white,
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
