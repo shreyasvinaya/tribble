@@ -227,7 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(snapshot.data.displayName,
-                            style: TextStyle(fontSize: 25.0)),
+                            style: TextStyle(fontSize: 25.0, color: Colors.black)),
                         SizedBox(
                           height: 7.0,
                         ),
@@ -240,7 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           height: 7.0,
                         ),
                         Text(snapshot.data.email,
-                            style: TextStyle(fontSize: 10.0)),
+                            style: TextStyle(fontSize: 10.0, color: Colors.black)),
                       ],
                     );
                   }),
