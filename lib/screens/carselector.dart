@@ -79,11 +79,11 @@ class Carselector extends State<HomeScreen> {
           child: ListView(
             children: [
             DrawerHeader(
-              decoration: BoxDecoration(color: Colors.grey[400]),
+              decoration: BoxDecoration(color: Colors.white),
               child: StreamBuilder<User>(
                 stream: authBloc.currentUser,
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) return CircularProgressIndicator();
+                  if (!snapshot.hasData) return Container(decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/devsoc.png'), fit: BoxFit.fitHeight), color: Colors.white),);
                   print(snapshot.data.photoURL);
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
